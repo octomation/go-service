@@ -1,0 +1,55 @@
+---
+project_name: %template%
+
+archives:
+- id: %template%
+  files:
+  - LICENSE
+  format: tar.gz
+  name_template: "{{.Binary}}_{{.Version}}_{{.Os}}-{{.Arch}}"
+  replacements:
+    386:    32bit
+    amd64:  64bit
+    darwin: macOS
+    linux:  Linux
+
+brews:
+- name: %template%
+  commit_author:
+    name:  Kamil Samigullin
+    email: kamil@samigullin.info
+  description: %template%
+  folder: Formula
+  homepage: %template%
+  github:
+    owner: %template%
+    name:  %template%
+  install: |
+    bin.install "%template%"
+    output = Utils.popen_read("#{bin}/%template% completion bash")
+    (bash_completion/"%template%").write output
+    output = Utils.popen_read("#{bin}/%template% completion zsh")
+    (zsh_completion/"_%template%").write output
+    prefix.install_metafiles
+  test: |
+    system "#{bin}/%template% --version"
+
+builds:
+- binary: %template%
+  env:
+  - CGO_ENABLED=0
+  goarch:
+  - 386
+  - amd64
+  goos:
+  - darwin
+  - linux
+  ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  main: .
+
+checksum: { name_template: checksums.txt }
+
+release:
+  github:
+    owner: %template%
+    name:  %template%
