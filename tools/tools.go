@@ -8,10 +8,12 @@ import (
 	_ "github.com/golang/mock/mockgen"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/kamilsk/egg"
+	_ "github.com/mailru/easyjson/easyjson"
 	_ "golang.org/x/tools/cmd/goimports"
 )
 
 //go:generate go install github.com/golang/mock/mockgen
 //go:generate go install github.com/golangci/golangci-lint/cmd/golangci-lint
 //go:generate go install github.com/kamilsk/egg
+//go:generate go install github.com/mailru/easyjson/easyjson
 //go:generate go install golang.org/x/tools/cmd/goimports

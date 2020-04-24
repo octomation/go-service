@@ -65,11 +65,11 @@ $ :binary completion zsh  > /path/to/zsh-completions/_:binary.zsh
 
 made with ❤️ for everyone
 
-[build.page]:       https://travis-ci.org/:owner/:repository
-[build.icon]:       https://travis-ci.org/:owner/:repository.svg?branch=master
+[build.page]:       https://travis-ci.com/:owner/:repository
+[build.icon]:       https://travis-ci.com/:owner/:repository.svg?branch=master
 [design.page]:      https://www.notion.so/33715348cc114ea79dd350a25d16e0b0?r=0b753cbf767346f5a6fd51194829a2f3
 [promo.page]:       https://github.com/:owner/:repository
-[template.page]:    https://github.com/octomation/go-tool
-[template.icon]:    https://img.shields.io/badge/template-go--tool-blue
+[template.page]:    https://github.com/octomation/go-service
+[template.icon]:    https://img.shields.io/badge/template-go--service-blue
 
 [egg]:              https://github.com/kamilsk/egg
