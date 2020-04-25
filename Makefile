@@ -4,6 +4,7 @@
 
 SHELL = /bin/bash -euo pipefail
 
+GO_VERSIONS = 1.11 1.12 1.13 1.14
 GO111MODULE = on
 GOFLAGS     = -mod=vendor
 GOPRIVATE   = go.octolab.net
@@ -29,6 +30,7 @@ export GOPROXY     := $(GOPROXY)
 
 .PHONY: go-env
 go-env:
+	@echo "GO_VERSIONS: $(GO_VERSIONS)"
 	@echo "GO111MODULE: `go env GO111MODULE`"
 	@echo "GOFLAGS:     $(strip `go env GOFLAGS`)"
 	@echo "GOPRIVATE:   $(strip `go env GOPRIVATE`)"
@@ -193,9 +195,11 @@ go$(1):
 		golang:$(1) bash
 endef
 
-render_go_tpl = $(eval $(call go_tpl,$(version)))
-$(foreach version,1.12 1.13 1.14,$(render_go_tpl))
+render_go_tpl = $(eval $(call go_tpl, $(version)))
+$(foreach version, $(GO_VERSIONS), $(render_go_tpl))
 
+
+GO_VERSIONS = 1.12 1.13 1.14
 
 .PHONY: clean
 clean: build-clean deps-clean install-clean test-clean
