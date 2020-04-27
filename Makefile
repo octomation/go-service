@@ -1,10 +1,13 @@
 # sourced by https://github.com/octomation/makefiles
 
 .DEFAULT_GOAL = test-with-coverage
+GO_VERSIONS   = 1.12 1.13 1.14
 
-SHELL = /bin/bash -euo pipefail
+SHELL := /bin/bash -euo pipefail # `explain set -euo pipefail`
 
-GO_VERSIONS = 1.11 1.12 1.13 1.14
+OS   = $(shell uname -s)
+ARCH = $(shell uname -m)
+
 GO111MODULE = on
 GOFLAGS     = -mod=vendor
 GOPRIVATE   = go.octolab.net
@@ -30,7 +33,6 @@ export GOPROXY     := $(GOPROXY)
 
 .PHONY: go-env
 go-env:
-	@echo "GO_VERSIONS: $(GO_VERSIONS)"
 	@echo "GO111MODULE: `go env GO111MODULE`"
 	@echo "GOFLAGS:     $(strip `go env GOFLAGS`)"
 	@echo "GOPRIVATE:   $(strip `go env GOPRIVATE`)"
@@ -185,21 +187,23 @@ toolset:
 		go generate tools.go; \
 	)
 
+ifdef GO_VERSIONS
+
 define go_tpl
 .PHONY: go$(1)
 go$(1):
-	docker run \
+	@docker run \
 		--rm -it \
 		-v $(PWD):/src \
 		-w /src \
 		golang:$(1) bash
 endef
 
-render_go_tpl = $(eval $(call go_tpl, $(version)))
-$(foreach version, $(GO_VERSIONS), $(render_go_tpl))
+render_go_tpl = $(eval $(call go_tpl,$(version)))
+$(foreach version,$(GO_VERSIONS),$(render_go_tpl))
 
+endif
 
-GO_VERSIONS = 1.12 1.13 1.14
 
 .PHONY: clean
 clean: build-clean deps-clean install-clean test-clean
