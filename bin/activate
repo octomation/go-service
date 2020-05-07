@@ -78,7 +78,9 @@ realpath () {
     echo "$(cd `dirname ${1}` && pwd)/${1}"
 }
 
-up () { get -u $@ }
+up () {
+    get -u $@
+}
 
 deactivate nondestructive
 
