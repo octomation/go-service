@@ -13,11 +13,8 @@ env:
 go:
   - master
   - 1.x
-  - 1.12.x
   - 1.13.x
   - 1.14.x
-
-go_import_path: service
 
 jobs:
   allow_failures:
