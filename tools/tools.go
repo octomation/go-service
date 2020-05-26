@@ -14,6 +14,7 @@ import (
 	_ "github.com/kamilsk/egg"
 	_ "github.com/mailru/easyjson/easyjson"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
+	_ "golang.org/x/exp/cmd/gorelease"
 	_ "golang.org/x/tools/cmd/goimports"
 )
 
@@ -26,4 +27,5 @@ import (
 //go:generate go install github.com/kamilsk/egg
 //go:generate go install github.com/mailru/easyjson/easyjson
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp
+//go:generate go install golang.org/x/exp/cmd/gorelease
 //go:generate go install golang.org/x/tools/cmd/goimports
