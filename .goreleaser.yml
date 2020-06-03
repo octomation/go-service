@@ -51,6 +51,8 @@ builds:
     binary: %template%
     env:
       - CGO_ENABLED=0
+    flags:
+      - -trimpath
     goarch:
       - 386
       - amd64
@@ -64,6 +66,8 @@ builds:
     binary: %template%ctl
     env:
       - CGO_ENABLED=0
+    flags:
+      - -trimpath
     goarch:
       - 386
       - amd64
