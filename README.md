@@ -4,6 +4,7 @@
 
 [![Build][build.icon]][build.page]
 [![Template][template.icon]][template.page]
+[![Coverage][coverage.icon]][coverage.page]
 
 ## 💡 Idea
 
@@ -71,6 +72,8 @@ made with ❤️ for everyone
 
 [build.page]:       https://travis-ci.com/:owner/:repository
 [build.icon]:       https://travis-ci.com/:owner/:repository.svg?branch=master
+[coverage.page]:    https://codeclimate.com/github/:owner/:repository/test_coverage
+[coverage.icon]:    https://api.codeclimate.com/v1/badges/c570179a9335c747e77c/test_coverage
 [design.page]:      https://www.notion.so/33715348cc114ea79dd350a25d16e0b0?r=0b753cbf767346f5a6fd51194829a2f3
 [promo.page]:       https://github.com/:owner/:repository
 [template.page]:    https://github.com/octomation/go-service
