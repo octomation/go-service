@@ -1,4 +1,4 @@
-package config
+package cnf
 
 import "go.octolab.org/toolkit/config"
 

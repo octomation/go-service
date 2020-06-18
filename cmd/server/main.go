@@ -13,7 +13,7 @@ import (
 	"go.octolab.org/unsafe"
 
 	"service/internal/cmd"
-	"service/internal/config"
+	"service/internal/cnf"
 )
 
 const unknown = "unknown"
@@ -42,7 +42,7 @@ func main() {
 	root.SetOut(stdout)
 	root.AddCommand(
 		cobra.NewCompletionCommand(),
-		cobra.NewVersionCommand(version, date, commit, config.Features...),
+		cobra.NewVersionCommand(version, date, commit, cnf.Features...),
 	)
 	safe.Do(func() error { return root.ExecuteContext(ctx) }, shutdown)
 }
