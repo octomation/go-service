@@ -3,14 +3,14 @@ module service/tools
 go 1.13
 
 require (
-	github.com/go-swagger/go-swagger v0.23.0
+	github.com/go-swagger/go-swagger v0.24.0
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.4.3
 	github.com/golang/protobuf v1.4.2
 	github.com/golangci/golangci-lint v1.27.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/mailru/easyjson v0.7.1
-	github.com/twitchtv/twirp v5.11.0+incompatible
+	github.com/twitchtv/twirp v5.12.0+incompatible
 	golang.org/x/tools v0.3.3
 )
 
