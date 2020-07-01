@@ -126,6 +126,10 @@ test-with-coverage:
 test-with-coverage-profile:
 	@go test -cover -covermode count -coverprofile c.out -timeout $(TIMEOUT) $(PACKAGES)
 
+.PHONY: test-with-coverage-report
+test-with-coverage-report: test-with-coverage-profile
+	@go tool cover -html c.out
+
 BINARY  = $(BINPATH)/$(shell basename $(MAIN))
 BINPATH = $(PWD)/bin/$(OS)/$(ARCH)
 COMMIT  = $(shell git rev-parse --verify HEAD)
