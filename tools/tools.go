@@ -11,7 +11,7 @@ import (
 	_ "github.com/golang/protobuf/protoc-gen-go"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger"
-	_ "github.com/mailru/easyjson/easyjson"
+	_ "github.com/kyoh86/looppointer/cmd/looppointer"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
 	_ "golang.org/x/tools/cmd/goimports"
 )
@@ -22,6 +22,6 @@ import (
 //go:generate go install github.com/golang/protobuf/protoc-gen-go
 //go:generate go install github.com/golangci/golangci-lint/cmd/golangci-lint
 //go:generate go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
-//go:generate go install github.com/mailru/easyjson/easyjson
+//go:generate go install github.com/kyoh86/looppointer/cmd/looppointer
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp
 //go:generate go install golang.org/x/tools/cmd/goimports
