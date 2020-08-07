@@ -11,7 +11,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/kyoh86/looppointer v0.1.6
 	github.com/twitchtv/twirp v5.12.1+incompatible
-	golang.org/x/tools v0.3.3
+	golang.org/x/tools v0.4.4
 )
 
-replace golang.org/x/tools => github.com/kamilsk/go-tools v0.0.3
+replace golang.org/x/tools => github.com/kamilsk/go-tools v0.0.4
