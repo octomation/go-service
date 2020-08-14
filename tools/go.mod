@@ -1,6 +1,6 @@
 module service/tools
 
-go 1.13
+go 1.14
 
 require (
 	github.com/go-swagger/go-swagger v0.25.0
