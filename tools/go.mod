@@ -1,14 +1,14 @@
 module service/tools
 
-go 1.14
+go 1.15
 
 require (
 	github.com/go-swagger/go-swagger v0.25.0
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
-	github.com/golangci/golangci-lint v1.30.0
-	github.com/grpc-ecosystem/grpc-gateway v1.14.6
+	github.com/golangci/golangci-lint v1.31.0
+	github.com/grpc-ecosystem/grpc-gateway v1.14.8
 	github.com/kyoh86/looppointer v0.1.6
 	github.com/twitchtv/twirp v5.12.1+incompatible
 	golang.org/x/tools v0.4.4
