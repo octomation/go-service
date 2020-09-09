@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL = test-with-coverage
 GIT_HOOKS     = post-merge pre-commit pre-push
-GO_VERSIONS   = 1.13 1.14
+GO_VERSIONS   = 1.14 1.15
 
 SHELL := /bin/bash -euo pipefail # `explain set -euo pipefail`
 
@@ -193,9 +193,12 @@ toolset:
 ifdef GIT_HOOKS
 
 .PHONY: hooks
-hooks:
-	@ls .git/hooks | grep -v .sample | sed 's|.*|.git/hooks/&|' | xargs rm -f || true
+hooks: unhook
 	@for hook in $(GIT_HOOKS); do cp githooks/$$hook .git/hooks/; done
+
+.PHONY: unhook
+unhook:
+	@ls .git/hooks | grep -v .sample | sed 's|.*|.git/hooks/&|' | xargs rm -f || true
 
 define hook_tpl
 .PHONY: $(1)
