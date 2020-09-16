@@ -198,8 +198,8 @@ github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod h1:
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.octolab.org v0.2.0 h1:g8KDZFA3DsWDNvqIjeKsZthPLFp2R7dhz3T3t+7uajg=
 go.octolab.org v0.2.0/go.mod h1:qcFUaCKzejCMyAUEvonJNYCkfzo1pMXEOME2LAi9w94=
-go.octolab.org v0.3.0 h1:sy6AEEiraavOGRFZTtiO5emR76vUdE03F5XH6Xt982E=
-go.octolab.org v0.3.0/go.mod h1:qcFUaCKzejCMyAUEvonJNYCkfzo1pMXEOME2LAi9w94=
+go.octolab.org v0.5.4 h1:Japq9tgbfL1RG/Rjh7DGX51rispTkx7cKEnIkt2BTDg=
+go.octolab.org v0.5.4/go.mod h1:qcFUaCKzejCMyAUEvonJNYCkfzo1pMXEOME2LAi9w94=
 go.octolab.org/toolkit/cli v0.2.0 h1:hY0MlpcVSPYPLQlyuIJ7e9gIPqnWv1Rc0OWCFCHTJ9M=
 go.octolab.org/toolkit/cli v0.2.0/go.mod h1:cz8JRiUcTTkgC6clHe7iyDgcxIyWF33IIeqif1hU5p8=
 go.octolab.org/toolkit/config v0.0.4 h1:Q/MnSuRf4ttHCuAaq7PqpD8xQhEtmfK8mO9NX1IxvlA=
