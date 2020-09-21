@@ -37,6 +37,7 @@ func init() {
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
 	root := cmd.NewServer()
 	root.SetErr(stderr)
 	root.SetOut(stdout)
@@ -44,6 +45,7 @@ func main() {
 		cobra.NewCompletionCommand(),
 		cobra.NewVersionCommand(version, date, commit, cnf.Features...),
 	)
+
 	safe.Do(func() error { return root.ExecuteContext(ctx) }, shutdown)
 }
 
