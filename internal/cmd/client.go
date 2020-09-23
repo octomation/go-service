@@ -9,6 +9,8 @@ func NewClient() *cobra.Command {
 		Short: "%template%",
 		Long:  "%template%",
 
+		Args: cobra.NoArgs,
+
 		SilenceErrors: false,
 		SilenceUsage:  true,
 	}

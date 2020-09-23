@@ -191,12 +191,10 @@ github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
-go.octolab.org v0.5.4 h1:Japq9tgbfL1RG/Rjh7DGX51rispTkx7cKEnIkt2BTDg=
-go.octolab.org v0.5.4/go.mod h1:qcFUaCKzejCMyAUEvonJNYCkfzo1pMXEOME2LAi9w94=
 go.octolab.org v0.7.2 h1:Dg3SsGKlny1p8asWaMnx+87mEzImIFj5mSSqjTFlWZU=
 go.octolab.org v0.7.2/go.mod h1:nKRNx6ldZmcrMJckYRvIctL2ed8IremxWwK30lrVL5A=
-go.octolab.org/toolkit/cli v0.3.0 h1:XYT/pHEkZVl8ZEV4Yb2yGlhvEa/bR2mEgZKLl3QEtXI=
-go.octolab.org/toolkit/cli v0.3.0/go.mod h1:dPsne8WHorRbNNYi7M1GleL6Cq+VKd7sVWliJmNGTCQ=
+go.octolab.org/toolkit/cli v0.3.1 h1:cgqDv9ez8dXcgxB12wShnGZfiVEbJs76gpOvWIIq8/c=
+go.octolab.org/toolkit/cli v0.3.1/go.mod h1:aR9VKAfK3yP9Feck92zyVPgI/fmb1C79ttRqFQBB0I4=
 go.octolab.org/toolkit/config v0.0.4 h1:Q/MnSuRf4ttHCuAaq7PqpD8xQhEtmfK8mO9NX1IxvlA=
 go.octolab.org/toolkit/config v0.0.4/go.mod h1:dI3TlD3b4t0ilP7T+q0BYs6mhYBXm8i4TCLqCabykBA=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
