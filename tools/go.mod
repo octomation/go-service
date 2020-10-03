@@ -7,7 +7,7 @@ require (
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.3
-	github.com/golangci/golangci-lint v1.33.2
+	github.com/golangci/golangci-lint v1.34.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/kyoh86/looppointer v0.1.7
 	github.com/twitchtv/twirp v7.1.0+incompatible
