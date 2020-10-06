@@ -4,20 +4,30 @@
 GIT_HOOKS     = post-merge pre-commit pre-push
 GO_VERSIONS   = 1.14 1.15
 
-SHELL := /bin/bash -euo pipefail # `explain set -euo pipefail`
+OS    := $(shell uname -s | tr '[:upper:]' '[:lower:]')
+ARCH  := $(shell uname -m | tr '[:upper:]' '[:lower:]')
 
-OS   = $(shell uname -s | tr '[:upper:]' '[:lower:]')
-ARCH = $(shell uname -m | tr '[:upper:]' '[:lower:]')
+SHELL ?= /bin/bash -euo pipefail
 
-GO111MODULE = on
-GOFLAGS     = -mod=vendor
-GOPRIVATE   = go.octolab.net
-GOPROXY     = direct
-LOCAL       = $(MODULE)
-MODULE      = `GO111MODULE=on go list -m $(GOFLAGS)`
-PACKAGES    = `GO111MODULE=on go list $(GOFLAGS) ./...`
-PATHS       = $(shell echo $(PACKAGES) | sed -e "s|$(MODULE)/||g" | sed -e "s|$(MODULE)|$(PWD)/*.go|g")
-TIMEOUT     = 1s
+todo:
+	@grep \
+		--exclude-dir=vendor \
+		--exclude-dir=node_modules \
+		--exclude=Makefile \
+		--text \
+		--color \
+		-nRo -E ' TODO:.*|SkipNow' .
+.PHONY: todo
+
+GO111MODULE ?= on
+GOFLAGS     ?= -mod=vendor
+GOPRIVATE   ?= go.octolab.net
+GOPROXY     ?= direct
+LOCAL       ?= $(MODULE)
+MODULE      ?= `GO111MODULE=on go list -m $(GOFLAGS)`
+PACKAGES    ?= `GO111MODULE=on go list $(GOFLAGS) ./...`
+PATHS       ?= $(shell echo $(PACKAGES) | sed -e "s|$(MODULE)/||g" | sed -e "s|$(MODULE)|$(PWD)/*.go|g")
+TIMEOUT     ?= 1s
 
 ifeq (, $(PACKAGES))
 	PACKAGES = $(MODULE)
@@ -116,23 +126,39 @@ test-clean:
 .PHONY: test-clean
 
 test-with-coverage:
-	@go test -cover -timeout $(TIMEOUT) $(PACKAGES) | column -t | sort -r
+	@go test \
+		-cover \
+		-covermode atomic \
+		-coverprofile c.out \
+		-race \
+		-timeout $(TIMEOUT) \
+		$(PACKAGES) | column -t | sort -r
 .PHONY: test-with-coverage
 
-test-with-coverage-profile:
-	@go test -cover -covermode count -coverprofile c.out -timeout $(TIMEOUT) $(PACKAGES)
-.PHONY: test-with-coverage-profile
-
-test-with-coverage-report: test-with-coverage-profile
+test-with-coverage-report: test-with-coverage
 	@go tool cover -html c.out
 .PHONY: test-with-coverage-report
 
-BINARY  = $(BINPATH)/$(shell basename $(MAIN))
-BINPATH = $(PWD)/bin/$(OS)/$(ARCH)
-COMMIT  = $(shell git rev-parse --verify HEAD)
-DATE    = $(shell date +%Y-%m-%dT%T%Z)
-LDFLAGS = -ldflags "-s -w -X main.commit=$(COMMIT) -X main.date=$(DATE)"
-MAIN    = $(MODULE)
+test-integration:
+	@go test \
+		-cover \
+		-covermode atomic \
+		-coverprofile integration.out \
+		-race \
+		-tags=integration \
+		./... | column -t | sort -r
+.PHONY: test-integration
+
+test-integration-report: test-integration
+	@go tool cover -html integration.out
+.PHONY: test-integration-report
+
+BINARY  ?= $(BINPATH)/$(shell basename $(MAIN))
+BINPATH ?= $(PWD)/bin/$(OS)/$(ARCH)
+COMMIT  ?= $(shell git rev-parse --verify HEAD)
+DATE    ?= $(shell date +%Y-%m-%dT%T%Z)
+LDFLAGS ?= -ldflags "-s -w -X main.commit=$(COMMIT) -X main.date=$(DATE)"
+MAIN    ?= $(MODULE)
 
 export GOBIN := $(BINPATH)
 export PATH  := $(BINPATH):$(PATH)
@@ -151,6 +177,10 @@ build-env:
 build:
 	@go build -o $(BINARY) $(LDFLAGS) $(MAIN)
 .PHONY: build
+
+build-with-race:
+	@go build -race -o $(BINARY) $(LDFLAGS) $(MAIN)
+.PHONY: build-with-race
 
 build-clean:
 	@rm -f $(BINARY)
@@ -172,7 +202,7 @@ dist-dump:
 	@godownloader .goreleaser.yml > bin/install
 .PHONY: dist-dump
 
-TOOLFLAGS = -mod=
+TOOLFLAGS ?= -mod=
 
 tools-env:
 	@echo "GOBIN:       `go env GOBIN`"
@@ -184,9 +214,8 @@ toolset:
 		GOFLAGS=$(TOOLFLAGS); \
 		cd tools; \
 		go mod tidy; \
-		go mod download; \
 		if [[ "`go env GOFLAGS`" =~ -mod=vendor ]]; then go mod vendor; fi; \
-		go generate tools.go; \
+		go generate -tags tools tools.go; \
 	)
 .PHONY: toolset
 
@@ -227,6 +256,22 @@ render_go_tpl = $(eval $(call go_tpl,$(version)))
 $(foreach version,$(GO_VERSIONS),$(render_go_tpl))
 
 endif
+
+
+server: BINARY = $(BINPATH)/server
+server: MAIN   = ./cmd/server/main.go
+server: build
+.PHONY: server
+
+server-with-race: BINARY = $(BINPATH)/server-race
+server-with-race: MAIN   = ./cmd/server/main.go
+server-with-race: build-with-race
+.PHONY: server-with-race
+
+client: BINARY = $(BINPATH)/client
+client: MAIN   = ./cmd/client/main.go
+client: build
+.PHONY: client
 
 
 init: deps test lint hooks
