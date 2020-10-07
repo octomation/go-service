@@ -86,6 +86,6 @@ made with ❤️ for everyone
 [template.page]:    https://github.com/octomation/go-service
 [template.icon]:    https://img.shields.io/badge/template-go--service-blue
 [mirror.page]:      https://bitbucket.org/:owner/:repository
-[mirror.icon]:      https://img.shields.io/badge/template-mirror-blue
+[mirror.icon]:      https://img.shields.io/badge/mirror-bitbucket-blue
 
 [egg]:              https://github.com/kamilsk/egg
