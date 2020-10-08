@@ -85,7 +85,7 @@ made with ❤️ for everyone
 [quality.icon]:     https://goreportcard.com/badge/go.octolab.org
 [template.page]:    https://github.com/octomation/go-service
 [template.icon]:    https://img.shields.io/badge/template-go--service-blue
-[mirror.page]:      https://bitbucket.org/:owner/:repository
+[mirror.page]:      https://bitbucket.org/kamilsk/go-service
 [mirror.icon]:      https://img.shields.io/badge/mirror-bitbucket-blue
 
 [egg]:              https://github.com/kamilsk/egg
