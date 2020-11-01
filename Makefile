@@ -3,6 +3,7 @@
 .DEFAULT_GOAL = test-with-coverage
 GIT_HOOKS     = post-merge pre-commit pre-push
 GO_VERSIONS   = 1.14 1.15
+GO111MODULE   = on
 
 OS    := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH  := $(shell uname -m | tr '[:upper:]' '[:lower:]')
@@ -16,7 +17,7 @@ todo:
 		--exclude=Makefile \
 		--text \
 		--color \
-		-nRo -E ' TODO:.*|SkipNow' .
+		-nRo -E ' TODO:.*|SkipNow' . || true
 .PHONY: todo
 
 GO111MODULE ?= on
@@ -53,6 +54,8 @@ go-env:
 	@echo "PATHS:       $(strip $(PATHS))"
 	@echo "TIMEOUT:     $(TIMEOUT)"
 .PHONY: go-env
+
+export GOBIN := $(PWD)/bin/$(OS)/$(ARCH)
 
 deps-check:
 	@go mod verify
@@ -168,25 +171,18 @@ test-integration-report: test-integration
 	@go tool cover -html integration.out
 .PHONY: test-integration-report
 
-BINARY  ?= $(BINPATH)/$(shell basename $(MAIN))
-BINPATH ?= $(PWD)/bin/$(OS)/$(ARCH)
+BINARY  ?= `go env GOBIN`/$(shell basename $(MAIN))
 COMMIT  ?= $(shell git rev-parse --verify HEAD)
 DATE    ?= $(shell date +%Y-%m-%dT%T%Z)
 LDFLAGS ?= -ldflags "-s -w -X main.commit=$(COMMIT) -X main.date=$(DATE)"
 MAIN    ?= $(MODULE)
 
-export GOBIN := $(BINPATH)
-export PATH  := $(BINPATH):$(PATH)
-
 build-env:
 	@echo "BINARY:      $(BINARY)"
-	@echo "BINPATH:     $(BINPATH)"
 	@echo "COMMIT:      $(COMMIT)"
 	@echo "DATE:        $(DATE)"
-	@echo "GOBIN:       `go env GOBIN`"
 	@echo "LDFLAGS:     $(LDFLAGS)"
 	@echo "MAIN:        $(MAIN)"
-	@echo "PATH:        $$PATH"
 .PHONY: build-env
 
 build:
@@ -208,6 +204,21 @@ install:
 install-clean:
 	@go clean -cache
 .PHONY: install-clean
+
+server: BINARY = $(BINPATH)/server
+server: MAIN   = ./cmd/server/main.go
+server: build
+.PHONY: server
+
+server-with-race: BINARY = $(BINPATH)/server-race
+server-with-race: MAIN   = ./cmd/server/main.go
+server-with-race: build-with-race
+.PHONY: server-with-race
+
+client: BINARY = $(BINPATH)/client
+client: MAIN   = ./cmd/client/main.go
+client: build
+.PHONY: client
 
 dist-check:
 	@goreleaser --snapshot --skip-publish --rm-dist
@@ -273,20 +284,7 @@ $(foreach version,$(GO_VERSIONS),$(render_go_tpl))
 endif
 
 
-server: BINARY = $(BINPATH)/server
-server: MAIN   = ./cmd/server/main.go
-server: build
-.PHONY: server
-
-server-with-race: BINARY = $(BINPATH)/server-race
-server-with-race: MAIN   = ./cmd/server/main.go
-server-with-race: build-with-race
-.PHONY: server-with-race
-
-client: BINARY = $(BINPATH)/client
-client: MAIN   = ./cmd/client/main.go
-client: build
-.PHONY: client
+export PATH := `go env GOBIN`:$(PATH)
 
 
 init: deps test lint hooks
@@ -300,6 +298,8 @@ deps: deps-fetch toolset
 .PHONY: deps
 
 env: go-env build-env tools-env
+env:
+	@echo "PATH:        $$PATH"
 .PHONY: env
 
 format: go-fmt
@@ -308,7 +308,7 @@ format: go-fmt
 generate: go-generate format
 .PHONY: generate
 
-refresh: deps-tidy update deps generate format test build
+refresh: deps-tidy update deps generate test build
 .PHONY: refresh
 
 update: deps-update
