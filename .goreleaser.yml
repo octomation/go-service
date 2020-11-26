@@ -25,7 +25,7 @@ brews:
     description: %template%
     folder: Formula
     homepage: %template%
-    github:
+    tap:
       owner: %template%
       name: %template%
     install: |
