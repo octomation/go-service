@@ -69,9 +69,7 @@ $ source <(:binary completion)
 
 ...
 
----
-
-made with ❤️ for everyone
+<p align="right">made with ❤️ for everyone</p>
 
 [build.page]:       https://travis-ci.com/:owner/:repository
 [build.icon]:       https://travis-ci.com/:owner/:repository.svg?branch=master
