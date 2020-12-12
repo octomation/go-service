@@ -54,16 +54,13 @@ $ egg tools add github.com/:owner/:repository/cmd/server@:version
 
 > [egg][] is an `extended go get`.
 
-### Bash and Zsh completions
+### Shell completions
 
 ```bash
-$ :binary completion bash > /path/to/bash_completion.d/:binary.sh
-$ :binary completion zsh  > /path/to/zsh-completions/_:binary.zsh
-# or autodetect
-$ source <(:binary completion)
+$ :binary completion bash|fish|powershell|zsh > /path/to/completions/...
+# or
+$ source <(:binary completion bash|fish|powershell|zsh)
 ```
-
-> See `kubectl` [documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
 
 ## 🤲 Outcomes
 
