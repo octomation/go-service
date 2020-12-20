@@ -196,8 +196,8 @@ github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.octolab.org v0.7.2 h1:Dg3SsGKlny1p8asWaMnx+87mEzImIFj5mSSqjTFlWZU=
 go.octolab.org v0.7.2/go.mod h1:nKRNx6ldZmcrMJckYRvIctL2ed8IremxWwK30lrVL5A=
-go.octolab.org/toolkit/cli v0.3.1 h1:cgqDv9ez8dXcgxB12wShnGZfiVEbJs76gpOvWIIq8/c=
-go.octolab.org/toolkit/cli v0.3.1/go.mod h1:aR9VKAfK3yP9Feck92zyVPgI/fmb1C79ttRqFQBB0I4=
+go.octolab.org/toolkit/cli v0.4.0 h1:QDt4zPcaeHBw/9TDT807L3Nrbt5aqT+iPwqcQl9PH5Q=
+go.octolab.org/toolkit/cli v0.4.0/go.mod h1:21e8fMBwJ8n+FXsrMPtD8w0jWNTtjqWYuV2kiD/+vzw=
 go.octolab.org/toolkit/config v0.0.4 h1:Q/MnSuRf4ttHCuAaq7PqpD8xQhEtmfK8mO9NX1IxvlA=
 go.octolab.org/toolkit/config v0.0.4/go.mod h1:dI3TlD3b4t0ilP7T+q0BYs6mhYBXm8i4TCLqCabykBA=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
