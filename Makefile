@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL = test-with-coverage
 GIT_HOOKS     = post-merge pre-commit pre-push
-GO_VERSIONS   = 1.14 1.15
+GO_VERSIONS   = 1.15
 GO111MODULE   = on
 SHELL         = /bin/bash -euo pipefail
 
@@ -106,6 +106,7 @@ export GOPROXY     := $(GOPROXY)
 export GOTRACEBACK := $(GOTRACEBACK)
 
 go-env:
+	@echo "GO111MODULE: $(strip `go env GO111MODULE`)"
 	@echo "GOFLAGS:     $(strip `go env GOFLAGS`)"
 	@echo "GOPIPE:      $(GOPIPE)"
 	@echo "GOPRIVATE:   $(strip `go env GOPRIVATE`)"
