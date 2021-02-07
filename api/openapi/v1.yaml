@@ -1,0 +1,17 @@
+opeanapi: 3.0.0
+
+info:
+  title: OctoLab Service API
+  description: OctoLab Service API Specification.
+  termsOfService: https://www.octolab.org
+
+  contact:
+    name: OctoLab
+    url: https://www.octolab.org
+    email: support@octolab.org
+
+  license:
+    name: MIT
+    url: https://github.com/octolab/.github/blob/master/LICENSE
+
+  version: 1.0.0

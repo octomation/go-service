@@ -1,0 +1,96 @@
+---
+project_name: %template%
+
+archives:
+  - id: %template%
+    builds:
+      - %template%
+      - %template%ctl
+    files:
+      - LICENSE
+    format: tar.gz
+    name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
+    replacements:
+      amd64: 64bit_x86
+      arm64: 64bit_arm
+      darwin: macOS
+      linux: Linux
+
+brews:
+  - name: %template%
+    caveats: %template%
+    commit_author:
+      name: Kamil Samigullin
+      email: kamil@samigullin.info
+    description: %template%
+    folder: Formula
+    homepage: %template%
+    tap:
+      owner: %template%
+      name: %template%
+    install: |
+      bin.install "%template%"
+
+      output = Utils.popen_read("#{bin}/%template% completion bash")
+      (bash_completion/"%template%").write output
+
+      output = Utils.popen_read("#{bin}/%template% completion fish")
+      (fish_completion/"%template%.fish").write output
+
+      output = Utils.popen_read("#{bin}/%template% completion zsh")
+      (zsh_completion/"_%template%").write output
+
+      bin.install "%template%ctl"
+
+      output = Utils.popen_read("#{bin}/%template%ctl completion bash")
+      (bash_completion/"%template%ctl").write output
+
+      output = Utils.popen_read("#{bin}/%template%ctl completion fish")
+      (fish_completion/"%template%.fish").write output
+
+      output = Utils.popen_read("#{bin}/%template%ctl completion zsh")
+      (zsh_completion/"_%template%ctl").write output
+
+      prefix.install_metafiles
+    test: |
+      system "#{bin}/%template%    version"
+      system "#{bin}/%template%ctl version"
+
+builds:
+  - id: %template%
+    binary: %template%
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/server
+  - id: %template%ctl
+    binary: %template%ctl
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/client
+
+checksum: { name_template: checksums.txt }
+
+release:
+  github:
+    owner: %template%
+    name: %template%
