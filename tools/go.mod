@@ -9,8 +9,8 @@ require (
 	github.com/golangci/golangci-lint v1.36.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.2.0
 	github.com/kyoh86/looppointer v0.1.7
-	github.com/twitchtv/twirp v7.1.0+incompatible
-	golang.org/x/exp v0.0.0-20210201131500-d352d2db2ceb
+	github.com/twitchtv/twirp v7.1.1+incompatible
+	golang.org/x/exp v0.0.0-20210212053707-62dc52270d37
 	golang.org/x/tools v0.1.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.25.0
