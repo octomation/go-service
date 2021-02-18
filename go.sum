@@ -204,8 +204,8 @@ github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.octolab.org v0.9.0 h1:NVLi5C/Fh2Miyr42dFPrD0Yu6dhmElJHcqirr2HOhug=
 go.octolab.org v0.9.0/go.mod h1:nGTsvNE5SzxSriL/1u0xl5B+ttjIn9RzIbAhzaKE+Sk=
-go.octolab.org v0.10.1 h1:0gbdIsFH0vkqC9D0igKFnon0rBv5PWdoBBhQWJn7/3A=
-go.octolab.org v0.10.1/go.mod h1:Hl97oqUCvkbdBpFhsU3zUOl3WSkdRUqYab9zwbHCLJY=
+go.octolab.org v0.11.2 h1:I3zKkpGfqzXTWigy72GUIhknRzw0afiXw7RaQTaOyiM=
+go.octolab.org v0.11.2/go.mod h1:Hl97oqUCvkbdBpFhsU3zUOl3WSkdRUqYab9zwbHCLJY=
 go.octolab.org/toolkit/cli v0.6.2 h1:oRUvE1T1wAuglqcggKg/F8djTTsRvTwr2eFeJvL6ExE=
 go.octolab.org/toolkit/cli v0.6.2/go.mod h1:iEL6yN6YT3/Sbi19Tl38mn4agRr2yUyiNvbN29iqb/U=
 go.octolab.org/toolkit/config v0.0.4 h1:Q/MnSuRf4ttHCuAaq7PqpD8xQhEtmfK8mO9NX1IxvlA=
