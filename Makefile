@@ -1,6 +1,6 @@
 # sourced by https://github.com/octomation/makefiles
 
-.DEFAULT_GOAL = test-with-coverage
+.DEFAULT_GOAL = check
 GIT_HOOKS     = post-merge pre-commit pre-push
 GO_VERSIONS   = 1.15 1.16
 GO111MODULE   = on
@@ -347,9 +347,12 @@ endif
 
 export PATH := $(GOBIN):$(PATH)
 
-init: deps test lint hooks
+init: deps check hooks
 	$(AT) git config core.autocrlf input
 .PHONY: init
+
+check: test lint
+.PHONY: check
 
 clean: build-clean deps-clean install-clean test-clean
 .PHONY: clean
@@ -371,7 +374,7 @@ format: go-fmt
 generate: go-generate format
 .PHONY: generate
 
-refresh: deps-tidy update deps generate test build
+refresh: deps-tidy update deps generate check build
 .PHONY: refresh
 
 update: deps-update tools-update
@@ -380,5 +383,5 @@ update: deps-update tools-update
 verbose: make-verbose go-verbose
 .PHONY: verbose
 
-verify: deps-check generate test lint git-check
+verify: deps-check generate check git-check
 .PHONY: verify
