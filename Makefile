@@ -14,7 +14,7 @@ SHELL := /usr/bin/env bash -euo pipefail -c
 make-verbose:
 	$(eval AT :=)
 	$(eval MAKE := $(MAKE) verbose)
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: make-verbose
 
 todo:
@@ -122,12 +122,12 @@ go-env:
 
 go-verbose:
 	$(eval GOTESTFLAGS := -v)
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: go-verbose
 
 deps-check:
 	$(AT) go mod verify
-	$(AT) if command -v egg > /dev/null; then \
+	$(AT) if command -v egg >/dev/null; then \
 		egg deps check license; \
 		egg deps check version; \
 	fi
@@ -149,7 +149,7 @@ deps-tidy:
 
 deps-update: selector = '{{if not (or .Main .Indirect)}}{{.Path}}{{end}}'
 deps-update:
-	$(AT) if command -v egg > /dev/null; then \
+	$(AT) if command -v egg >/dev/null; then \
 		packages="`egg deps list | tr ' ' '\n' | sed -e 's|$$|/...@latest|'`"; \
 	else \
 		packages="`go list -f $(selector) -m -mod=readonly all | sed -e 's|$$|/...@latest|'`"; \
@@ -167,7 +167,7 @@ go-docs:
 .PHONY: go-docs
 
 go-fmt:
-	$(AT) if command -v goimports > /dev/null; then \
+	$(AT) if command -v goimports >/dev/null; then \
 		goimports -local $(LOCAL) -ungroup -w $(PATHS); \
 	else \
 		gofmt -s -w $(PATHS); \
@@ -183,13 +183,13 @@ go-pkg:
 .PHONY: go-pkg
 
 lint:
-	$(AT) if command -v golangci-lint > /dev/null; then \
+	$(AT) if command -v golangci-lint >/dev/null; then \
 		golangci-lint run ./...; \
 	else \
 		echo have no golangci-lint binary; \
 	fi
 
-	$(AT) if command -v looppointer > /dev/null; then \
+	$(AT) if command -v looppointer >/dev/null; then \
 		looppointer ./...; \
 	else \
 		echo have no looppointer binary; \
@@ -293,7 +293,7 @@ client: build
 .PHONY: client
 
 dist-check:
-	$(AT) if command -v goreleaser > /dev/null; then \
+	$(AT) if command -v goreleaser >/dev/null; then \
 		goreleaser --snapshot --skip-publish --rm-dist; \
 	else \
 		echo have no goreleaser binary; \
@@ -301,8 +301,8 @@ dist-check:
 .PHONY: dist-check
 
 dist-dump:
-	$(AT) if command -v godownloader > /dev/null; then \
-		godownloader .goreleaser.yml > bin/install; \
+	$(AT) if command -v godownloader >/dev/null; then \
+		godownloader .goreleaser.yml >bin/install; \
 	else \
 		echo have no godownloader binary; \
 	fi
@@ -341,7 +341,7 @@ tools-update: GOFLAGS = $(TOOLFLAGS)
 tools-update: selector = '{{if not (or .Main .Indirect)}}{{.Path}}{{end}}'
 tools-update:
 	$(AT) cd tools; \
-	if command -v egg > /dev/null; then \
+	if command -v egg >/dev/null; then \
 		packages="`egg deps list | tr ' ' '\n' | sed -e 's|$$|/...@latest|'`"; \
 	else \
 		packages="`go list -f $(selector) -m -mod=readonly all | sed -e 's|$$|/...@latest|'`"; \
@@ -356,19 +356,19 @@ tools-disabled:
 .PHONY: tools-disabled
 
 tools-fetch: tools-disabled
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: tools-fetch
 
 tools-tidy: tools-disabled
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: tools-tidy
 
 tools-install: tools-disabled
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: tools-install
 
 tools-update: tools-disabled
-	@echo > /dev/null
+	@echo >/dev/null
 .PHONY: tools-update
 endif
 
@@ -390,6 +390,7 @@ $(foreach version,$(GO_VERSIONS),$(render_go_tpl))
 
 endif
 endif
+
 
 export PATH := $(GOBIN):$(PATH)
 
