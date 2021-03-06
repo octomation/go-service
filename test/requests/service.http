@@ -1,0 +1,8 @@
+### Core
+POST {{service-api-host}}/echo
+Content-Type: application/x-www-form-urlencoded
+
+message=Hello%2C%20World!
+
+### Debug
+GET {{service-debug-host}}/debug/pprof
