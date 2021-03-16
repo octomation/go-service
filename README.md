@@ -34,9 +34,9 @@ $ brew install :owner/tap/:binary
 ### Binary
 
 ```bash
-$ curl -sSfL https://raw.githubusercontent.com/:owner/:repository/master/bin/install | sh
+$ curl -fsSL https://raw.githubusercontent.com/octomation/go-service/main/bin/install | sh
 # or
-$ wget -qO-  https://raw.githubusercontent.com/:owner/:repository/master/bin/install | sh
+$ wget -qO-  https://raw.githubusercontent.com/octomation/go-service/main/bin/install | sh
 ```
 
 > Don't forget about [security](https://www.idontplaydarts.com/2016/04/detecting-curl-pipe-bash-server-side/).
