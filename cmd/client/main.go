@@ -12,8 +12,8 @@ import (
 	"go.octolab.org/toolkit/cli/cobra"
 	"go.octolab.org/unsafe"
 
-	"service/internal/cmd"
-	"service/internal/cnf"
+	"service/internal/command"
+	"service/internal/config"
 )
 
 const unknown = "unknown"
@@ -38,11 +38,11 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	root := cmd.NewClient()
+	root := command.NewClient()
 	root.SetErr(stderr)
 	root.SetOut(stdout)
 	root.AddCommand(
-		cobra.NewVersionCommand(version, date, commit, cnf.Features...),
+		cobra.NewVersionCommand(version, date, commit, config.Features...),
 	)
 
 	safe.Do(func() error { return root.ExecuteContext(ctx) }, shutdown)

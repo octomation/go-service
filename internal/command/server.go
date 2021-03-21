@@ -1,11 +1,11 @@
-package cmd
+package command
 
 import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
 	"service"
-	"service/internal/cnf"
+	"service/internal/config"
 )
 
 // NewServer returns the new server command.
@@ -28,7 +28,7 @@ func NewServer() *cobra.Command {
 				return err
 			}
 
-			var config cnf.Server
+			var config config.Server
 			return viper.Unmarshal(&config)
 		},
 	}

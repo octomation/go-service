@@ -1,4 +1,4 @@
-package cmd_test
+package command_test
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	. "service/internal/cmd"
+	. "service/internal/command"
 )
 
 func TestNewServer(t *testing.T) {
