@@ -6,7 +6,7 @@ require (
 	github.com/go-swagger/go-swagger v0.26.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/mock v1.5.0
-	github.com/golangci/golangci-lint v1.38.0
+	github.com/golangci/golangci-lint v1.39.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
 	github.com/kyoh86/looppointer v0.1.7
 	github.com/twitchtv/twirp v7.1.1+incompatible
