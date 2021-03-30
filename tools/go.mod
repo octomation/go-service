@@ -3,7 +3,7 @@ module service/tools
 go 1.15
 
 require (
-	github.com/go-swagger/go-swagger v0.26.1
+	github.com/go-swagger/go-swagger v0.27.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/mock v1.5.0
 	github.com/golangci/golangci-lint v1.39.0
