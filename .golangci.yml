@@ -22,6 +22,7 @@ linters:
     - exhaustive    # https://github.com/nishanths/exhaustive
     - exportloopref # https://github.com/kyoh86/exportloopref
     - gocritic      # https://github.com/go-critic/go-critic
+    - looppointer   # https://github.com/kyoh86/looppointer
     - noctx         # https://github.com/sonatard/noctx
 
 #    - asciicheck         # https://github.com/tdakkota/asciicheck
@@ -58,7 +59,6 @@ linters:
 #    - importas           # https://github.com/julz/importas
 #    - interfacer         # https://github.com/mvdan/interfacer (deprecated)
 #    - lll                # https://github.com/walle/lll
-#    - looppointer        # https://github.com/kyoh86/looppointer
 #    - makezero           # https://github.com/ashanbrown/makezero
 #    - maligned           # https://github.com/mdempsky/maligned (deprecated)
 #    - misspell           # https://github.com/client9/misspell
