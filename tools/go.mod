@@ -12,7 +12,7 @@ require (
 	golang.org/x/exp v0.0.0-20210622150013-725118b2000e
 	golang.org/x/tools v0.1.3
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
-	google.golang.org/protobuf v1.26.0
+	google.golang.org/protobuf v1.27.0
 )
 
 replace (
