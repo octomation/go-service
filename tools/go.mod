@@ -9,13 +9,13 @@ require (
 	github.com/golangci/golangci-lint v1.41.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	github.com/twitchtv/twirp v8.1.0+incompatible
-	golang.org/x/exp v0.0.0-20210622150013-725118b2000e
-	golang.org/x/tools v0.1.3
+	golang.org/x/exp v0.0.0-20210625193404-fa9d1d177d71
+	golang.org/x/tools v0.1.4
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.0
 )
 
 replace (
 	github.com/golangci/golangci-lint => github.com/kamilsk/golangci-lint v1.41.1
-	golang.org/x/tools => github.com/kamilsk/go-tools v0.1.3
+	golang.org/x/tools => github.com/kamilsk/go-tools v0.1.4
 )
