@@ -42,7 +42,6 @@ func main() {
 	root.SetErr(stderr)
 	root.SetOut(stdout)
 	root.AddCommand(
-		cobra.NewCompletionCommand(),
 		cobra.NewVersionCommand(version, date, commit, cnf.Features...),
 	)
 
