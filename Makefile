@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL = check
 GIT_HOOKS     = post-merge pre-commit pre-push
-GO_VERSIONS   = 1.17 1.18
+GO_VERSIONS   = 1.18 1.19
 MAIN          = ./cmd/server
 
 AT    := @
@@ -190,7 +190,7 @@ go-pkg:
 
 lint:
 	$(AT) if command -v golangci-lint >/dev/null; then \
-		golangci-lint run ./...; \
+		golangci-lint run --enable looppointer ./...; \
 	else \
 		echo have no golangci-lint binary; \
 	fi
