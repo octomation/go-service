@@ -2,21 +2,21 @@ name: publishing
 
 on:
   push:
-    tags: [ '*' ]
+    tags: [ 'v*' ]
 
 permissions:
   contents: write
 
 jobs:
-  goreleaser:
+  release:
     runs-on: ubuntu-18.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with: { fetch-depth: 0 }
       - uses: actions/setup-go@v3
-        with: { go-version: '1.18' }
-      - uses: actions/cache@v2
+        with: { go-version: '1.19' }
+      - uses: actions/cache@v3
         with:
           path: |
             ~/go/pkg/mod
@@ -26,7 +26,7 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
           restore-keys: ${{ runner.os }}-go-
       - run: make env deps-fetch test
-      - uses: goreleaser/goreleaser-action@v2
+      - uses: goreleaser/goreleaser-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
         with:
@@ -35,14 +35,14 @@ jobs:
           args: release --rm-dist
 
   notify:
-    needs: [ test ]
+    needs: [ release ]
     if: ${{ failure() || success() }}
     runs-on: ubuntu-18.04
 
     steps:
       - uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_COLOR: ${{ needs.test.result }}
+          SLACK_COLOR: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
           SLACK_ICON: https://github.com/github.png?size=64
           SLACK_TITLE: '${{ github.repository }}: ${{ github.workflow }}'
           SLACK_USERNAME: GitHub Actions
