@@ -1,6 +1,6 @@
-module service/tools
+module go.octolab.org/template/service/tools
 
-go 1.18
+go 1.19
 
 require (
 	github.com/gogo/protobuf v1.3.2

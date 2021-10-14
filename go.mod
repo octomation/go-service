@@ -1,4 +1,4 @@
-module service
+module go.octolab.org/template/service
 
 go 1.18
 
