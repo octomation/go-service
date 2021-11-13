@@ -6,7 +6,7 @@ require (
 	github.com/fatih/color v1.13.0
 	github.com/golang/mock v1.6.0
 	github.com/spf13/afero v1.9.2
-	github.com/spf13/cobra v1.4.0
+	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.8.0
 	go.octolab.org v0.12.1
