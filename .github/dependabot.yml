@@ -8,6 +8,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+      time: '07:00'
+      timezone: UTC
     labels:
       - 'type: improvement'
       - 'scope: code'
@@ -20,6 +22,8 @@ updates:
     directory: /docs/
     schedule:
       interval: daily
+      time: '07:00'
+      timezone: UTC
     labels:
       - 'type: improvement'
       - 'scope: docs'
@@ -32,6 +36,8 @@ updates:
     directory: /tools/
     schedule:
       interval: daily
+      time: '07:00'
+      timezone: UTC
     labels:
       - 'type: improvement'
       - 'scope: inventory'
@@ -44,6 +50,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+      time: '07:00'
+      timezone: UTC
     labels:
       - 'type: improvement'
       - 'scope: inventory'
