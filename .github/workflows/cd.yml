@@ -27,7 +27,7 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
           restore-keys: ${{ runner.os }}-go-
       - run: make env deps-fetch test
-      - uses: goreleaser/goreleaser-action@v3
+      - uses: goreleaser/goreleaser-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
         with:
