@@ -3,7 +3,6 @@
 .DEFAULT_GOAL = check
 GIT_HOOKS     = post-merge pre-commit pre-push
 GO_VERSIONS   = 1.18 1.19
-MAIN          = ./cmd/server
 
 AT    := @
 ARCH  := $(shell uname -m | tr '[:upper:]' '[:lower:]')
@@ -78,7 +77,7 @@ GOBIN       ?= $(PWD)/bin/$(OS)/$(ARCH)
 GOFLAGS     ?= -mod=
 GOPRIVATE   ?= go.octolab.net
 GOPROXY     ?= direct
-GOTEST      ?= $(shell PATH=$(PATH) command -v testit)
+GOTEST      ?= $(shell PATH="$(PATH)" command -v testit)
 GOTESTFLAGS ?=
 GOTRACEBACK ?= all
 LOCAL       ?= $(MODULE)
@@ -124,8 +123,7 @@ go-env:
 .PHONY: go-env
 
 go-verbose:
-	$(eval GOTESTFLAGS := -v)
-	@echo >/dev/null
+	$(eval GOTESTFLAGS := -v) @true
 .PHONY: go-verbose
 
 deps-check:
@@ -173,11 +171,7 @@ go-docs:
 .PHONY: go-docs
 
 go-fmt:
-	$(AT) if command -v goimports >/dev/null; then \
-		goimports -local $(LOCAL) -ungroup -w $(PATHS); \
-	else \
-		gofmt -s -w $(PATHS); \
-	fi
+	$(AT) goimports -local $(LOCAL) -w $(PATHS)
 .PHONY: go-fmt
 
 go-generate:
@@ -189,11 +183,7 @@ go-pkg:
 .PHONY: go-pkg
 
 lint:
-	$(AT) if command -v golangci-lint >/dev/null; then \
-		golangci-lint run --enable looppointer ./...; \
-	else \
-		echo have no golangci-lint binary; \
-	fi
+	$(AT) golangci-lint run --enable looppointer ./...
 .PHONY: lint
 
 test:
@@ -244,6 +234,7 @@ test-integration-report: test-integration
 	$(AT) go tool cover -html integration.out
 .PHONY: test-integration-report
 
+# TODO:refactor support relative path
 BINARY  ?= $(GOBIN)/$(shell basename $(MAIN))
 LDFLAGS ?= -ldflags "-s -w -X main.commit=$(COMMIT) -X main.date=$(DATE)"
 MAIN    ?= $(MODULE)
@@ -265,10 +256,6 @@ build-with-race:
 	$(AT) go build -race -o $(BINARY) $(LDFLAGS) $(MAIN)
 .PHONY: build-with-race
 
-build-clean:
-	$(AT) rm -f $(BINARY)
-.PHONY: build-clean
-
 install:
 	$(AT) go install $(LDFLAGS) $(MAIN)
 .PHONY: install
@@ -277,36 +264,25 @@ install-clean:
 	$(AT) go clean -cache
 .PHONY: install-clean
 
-server: BINARY = $(GOBIN)/server
-server: MAIN   = ./cmd/server/main.go
-server: build
-.PHONY: server
-
-server-with-race: BINARY = $(GOBIN)/server-race
-server-with-race: MAIN   = ./cmd/server/main.go
-server-with-race: build-with-race
-.PHONY: server-with-race
-
-client: BINARY = $(GOBIN)/client
-client: MAIN   = ./cmd/client/main.go
-client: build
+client:
+	$(eval BINARY := $(GOBIN)/client)
+	$(eval MAIN := ./cmd/client/main.go)
+	@true
 .PHONY: client
 
+server:
+	$(eval BINARY := $(GOBIN)/server)
+	$(eval MAIN := ./cmd/server/main.go)
+	@true
+.PHONY: server
+
 dist-check:
-	$(AT) if command -v goreleaser >/dev/null; then \
-		goreleaser --snapshot --skip-publish --rm-dist; \
-	else \
-		echo have no goreleaser binary; \
-	fi
+	$(AT) goreleaser --snapshot --skip-publish --rm-dist
 .PHONY: dist-check
 
-dist-dump:
-	$(AT) if command -v godownloader >/dev/null; then \
-		godownloader .goreleaser.yml >bin/install; \
-	else \
-		echo have no godownloader binary; \
-	fi
-.PHONY: dist-dump
+dist-installer:
+	$(AT) godownloader .goreleaser.yml >bin/install
+.PHONY: dist-installer
 
 TOOLFLAGS ?= -mod=
 
@@ -359,23 +335,23 @@ tools-disabled:
 .PHONY: tools-disabled
 
 tools-fetch: tools-disabled
-	@echo >/dev/null
+	@true
 .PHONY: tools-fetch
 
 tools-tidy: tools-disabled
-	@echo >/dev/null
+	@true
 .PHONY: tools-tidy
 
 tools-install: tools-disabled
-	@echo >/dev/null
+	@true
 .PHONY: tools-install
 
 tools-update: tools-disabled
-	@echo >/dev/null
+	@true
 .PHONY: tools-update
 endif
 
-ifneq (, $(shell PATH=$(PATH) command -v docker))
+ifneq (, $(shell PATH="$(PATH)" command -v docker))
 ifdef GO_VERSIONS
 
 define go_tpl
@@ -403,7 +379,7 @@ init: deps check hooks
 check: test lint
 .PHONY: check
 
-clean: build-clean deps-clean install-clean test-clean
+clean: deps-clean install-clean test-clean
 .PHONY: clean
 
 deps: deps-fetch tools-install
