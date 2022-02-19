@@ -80,8 +80,9 @@ jobs:
         if: matrix.go == '1.19.x'
         with: { name: code-coverage-report, path: c.out }
 
-      - run: make install
-      - run: '[ $(ls bin/linux/*/* | wc -l) = 1 ]'
+      - run: make client install
+      - run: make server install
+      - run: '[ $(ls bin/linux/*/* | wc -l) = 2 ]'
 
   report:
     needs: [ test ]

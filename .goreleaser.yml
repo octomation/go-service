@@ -10,11 +10,7 @@ archives:
       - LICENSE
     format: tar.gz
     name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
-    replacements:
-      amd64: 64bit_x86
-      arm64: 64bit_arm
-      darwin: macOS
-      linux: Linux
+    rlcp: true
 
 brews:
   - name: %template%

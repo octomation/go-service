@@ -1,0 +1,23 @@
+{
+  "name": "docs",
+  "description": "Service documentation.",
+  "homepage": "https://github.com/octomation/go-service#readme",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Kamil Samigullin",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/octomation/go-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/octomation/go-service/issues"
+  },
+  "scripts": {
+    "test": "exit 1"
+  },
+  "dependencies": {
+    "@mdx-js/esbuild": "^2.2.1",
+    "@mdx-js/mdx": "^2.2.1",
+    "@mdx-js/react": "^2.2.1"
+  }
+}

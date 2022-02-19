@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
-set -o nounset
-set -o pipefail
+[ "${BASH_VERSINFO:-0}" -ge 4 ] || {
+  echo "bash version 4 or higher is required" >&2
+  exit 1
+}
+
+set -euo pipefail
 
 #eval "$(run gateway.proto)"
 function gateway.proto() {
@@ -36,30 +39,43 @@ function google.proto() {
 EOF
 }
 
-function test_example() {
-  return 0
+function linters() {
+  curl -s https://golangci-lint.run/usage/linters/ |
+    pup ':parent-of(#enabled-by-default)' |
+    pup 'table td a:first-child json{}' |
+    jq -r '.[] | (.text + " " + .href)' |
+    column -t
 }
 
-function tests() {
-  for test in $(compgen -A function | grep 'test_'); do
-    local result=()
-    if $test >/dev/null 2>&1; then
-      result+=(ok)
-    else
-      result+=(fail)
-    fi
-    result+=("${test}")
-    result+=(todo:timer)
-    echo "${result[@]}" | column -t
-  done
+declare -A config
+config['dryrun']=false
+
+_() {
+  if ${config['dryrun']}; then
+    echo "${@}"
+    return
+  fi
+  trap 'echo "${@}"' ERR
+  "${@}"
+}
+@debug() { echo "${@}"; }
+@trace() { @debug "${@}" && "${@}"; }
+@error() { echo "${@}" >&2; }
+@fatal() { @error "${@}" && exit 1; }
+@usage() {
+  cat - <<EOF
+Usage: $0 <task> <args>
+Tasks:
+EOF
+  compgen -A function | grep -Ev '^(@|_)' | sort | cat -n
 }
 
-function help() {
-  echo "$0 <task> <args>"
-  echo "Tasks:"
-  compgen -A function | grep -v '^__' | sort | cat -n
+function @main() {
+  if [[ "${1:-}" =~ ^--dry-run|-d$ ]]; then
+    config['dryrun']=true
+    shift
+  fi
+  "${@:-@usage}"
 }
 
-__default() { help; }
-
-"${@:-__default}"
+@main "${@}"
