@@ -284,8 +284,8 @@ go.etcd.io/etcd/api/v3 v3.5.0/go.mod h1:cbVKeC6lCfl7j/8jBhAK6aIYO9XOjdptoxU/nLQc
 go.etcd.io/etcd/client/pkg/v3 v3.5.0/go.mod h1:IJHfcCEKxYu1Os13ZdwCwIUTUVGYTSAM3YSwc9/Ac1g=
 go.etcd.io/etcd/client/v2 v2.305.0/go.mod h1:h9puh54ZTgAKtEbut2oe9P4L/oqKCVB6xsXlzd7alYQ=
 go.octolab.org v0.12.0/go.mod h1:TEYR7HOfImJq8AsoCcl9JBK+80t4QBY4EilGxMtscNE=
-go.octolab.org v0.12.1 h1:5JI/Xn2Td3Zq50yQUMOJiQsDX5SQuEn0XK89vKL47OI=
-go.octolab.org v0.12.1/go.mod h1:tKGYosAOwKnM+kgRJEZC7b8vp829okhEl+7geOrEEjU=
+go.octolab.org v0.12.2 h1:jMSZYYDQ2lvHPg+8c9wCJKGTuCFe/sOsjLxAFGvdb+Q=
+go.octolab.org v0.12.2/go.mod h1:tKGYosAOwKnM+kgRJEZC7b8vp829okhEl+7geOrEEjU=
 go.octolab.org/toolkit/cli v0.6.3 h1:PXQ5FTolES3g61n402MWV2KTYSFUUWCnn/5Npl/bmGs=
 go.octolab.org/toolkit/cli v0.6.3/go.mod h1:bfeQzJzBzEBXeU8JJZu0WfffuUriAqwJEg1hf2vhfeY=
 go.octolab.org/toolkit/config v0.0.4 h1:Q/MnSuRf4ttHCuAaq7PqpD8xQhEtmfK8mO9NX1IxvlA=
