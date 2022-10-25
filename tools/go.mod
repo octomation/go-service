@@ -6,7 +6,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/golangci/golangci-lint v1.48.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
-	github.com/twitchtv/twirp v8.1.2+incompatible
+	github.com/twitchtv/twirp v8.1.3+incompatible
 	golang.org/x/tools v0.1.12
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
