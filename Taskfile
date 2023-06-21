@@ -1,81 +1,23 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 [ "${BASH_VERSINFO:-0}" -ge 4 ] || {
   echo "bash version 4 or higher is required" >&2
   exit 1
 }
 
-set -euo pipefail
+include=(
+  bin/lib/core/*.bash
+  bin/lib/docs/*.bash
+  bin/lib/git/*.bash
+  bin/lib/runtime/*.bash
+  bin/lib/tools/tools.bash
+  bin/lib/utils/*.bash
+  bin/lib/main.bash
+)
 
-#eval "$(run gateway.proto)"
-function gateway.proto() {
-  cat <<EOF
-    rm -rf api/vendor/protoc-gen-openapiv2/options/*
-    pushd /tmp || return 1
-    clone git@github.com:grpc-ecosystem/grpc-gateway.git#v2.7.3
-    popd || return 1
-    popd || return 1
-    find /tmp/grpc-gateway/protoc-gen-openapiv2/options \
-      -maxdepth 1 \
-      -name '*.proto' \
-      -exec cp -f {} api/vendor/protoc-gen-openapiv2/options \;
-    rm -rf /tmp/grpc-gateway
-EOF
-}
-
-#eval "$(run google.proto)"
-function google.proto() {
-  cat <<EOF
-    rm -rf api/vendor/google/protobuf/*
-    pushd /tmp || return 1
-    clone git@github.com:protocolbuffers/protobuf.git#v3.19.4
-    popd || return 1
-    popd || return 1
-    find /tmp/protobuf/src/google/protobuf \
-      -maxdepth 1 \
-      -name '*.proto' \
-      -exec cp -f {} api/vendor/google/protobuf \;
-    rm -rf /tmp/protobuf
-EOF
-}
-
-function linters() {
-  curl -s https://golangci-lint.run/usage/linters/ |
-    pup ':parent-of(#enabled-by-default)' |
-    pup 'table td a:first-child json{}' |
-    jq -r '.[] | (.text + " " + .href)' |
-    column -t
-}
-
-declare -A config
-config['dryrun']=false
-
-_() {
-  if ${config['dryrun']}; then
-    echo "${@}"
-    return
-  fi
-  trap 'echo "${@}"' ERR
-  "${@}"
-}
-@debug() { echo "${@}"; }
-@trace() { @debug "${@}" && "${@}"; }
-@error() { echo "${@}" >&2; }
-@fatal() { @error "${@}" && exit 1; }
-@usage() {
-  cat - <<EOF
-Usage: $0 <task> <args>
-Tasks:
-EOF
-  compgen -A function | grep -Ev '^(@|_)' | sort | cat -n
-}
-
-function @main() {
-  if [[ "${1:-}" =~ ^--dry-run|-d$ ]]; then
-    config['dryrun']=true
-    shift
-  fi
-  "${@:-@usage}"
-}
-
-@main "${@}"
+for script in "${include[@]}"; do
+  # shellcheck source=bin/lib/main.bash
+  source "${script}"
+done
