@@ -1,51 +1,64 @@
-name: publishing
+name: Continuous delivery
 
 on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: The reason for dispatching it manually.
+        type: string
+        default: manual healthcheck
+        required: true
+
   push:
     tags: [ 'v*' ]
-
-permissions:
-  contents: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the repository
+        uses: actions/checkout@v3
         with: { fetch-depth: 0 }
-      - uses: actions/setup-go@v4
-        with: { go-version: '1.19', cache: true }
+      - name: Set up Go environment
+        uses: actions/setup-go@v4
+        with: { go-version: 1.20.x, cache-dependency-path: tools/go.sum, check-latest: true }
 
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-            ~/Library/Caches/go-build
-            %LocalAppData%\go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
-          restore-keys: ${{ runner.os }}-go-
-
-      - run: make env deps-fetch test
-      - uses: goreleaser/goreleaser-action@v4
+      - name: Run fast check and tests
+        run: make fast-check test
+      - name: Publish the release
+        uses: goreleaser/goreleaser-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
         with:
           distribution: goreleaser
           version: latest
-          args: release --rm-dist
+          args: release --clean
 
   notify:
+    name: Notifying
     needs: [ release ]
-    if: failure() || success()
     runs-on: ubuntu-latest
+    if: failure() || success()
 
     steps:
-      - uses: rtCamp/action-slack-notify@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with: { fetch-depth: 0 }
+      - name: Define notification message
+        id: message
+        uses: ./.github/actions/notify
+
+      - name: Send Slack notification
+        uses: rtCamp/action-slack-notify@v2
+        continue-on-error: true
         env:
           SLACK_COLOR: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+          SLACK_FOOTER: made with ❤️ for everyone by OctoLab
           SLACK_ICON: https://github.com/github.png?size=64
-          SLACK_TITLE: '${{ github.repository }}: ${{ github.workflow }}'
+          SLACK_MESSAGE: ${{ steps.message.outputs.txt }}
+          SLACK_TITLE: '🚀 ${{ github.repository }}: ${{ github.workflow }}'
           SLACK_USERNAME: GitHub Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

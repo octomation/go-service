@@ -1,105 +1,135 @@
-name: checking
+name: Continuous integration
 
 on:
   workflow_dispatch:
+    inputs:
+      reason:
+        description: The reason for dispatching it manually.
+        type: string
+        default: manual healthcheck
+        required: true
 
   pull_request:
-    branches: [ '*' ]
+    branches: [ main ]
     paths:
       - '.github/workflows/ci.yml'
       - '.golangci.yml'
       - '**.go'
       - 'go.{mod,sum}'
-      - '!tools/*'
+      - 'Makefile'
 
   push:
-    branches: [ '*' ]
+    branches: [ main ]
     paths:
       - '.github/workflows/ci.yml'
       - '.golangci.yml'
       - '**.go'
       - 'go.{mod,sum}'
-      - '!tools/*'
+      - 'Makefile'
     tags: [ '!*' ]
+
+  schedule:
+    - cron: 0 7 1 * * # at 07:00 on day-of-month 1, UTC
 
 jobs:
   lint:
+    name: Linting
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the repository
+        uses: actions/checkout@v3
         with: { fetch-depth: 0 }
-      - uses: actions/setup-go@v4
-        with: { go-version: '1.19', cache: true }
+      - name: Set up Go environment
+        uses: actions/setup-go@v4
+        with: { go-version: 1.20.x, cache-dependency-path: tools/go.sum, check-latest: true }
 
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-            ~/Library/Caches/go-build
-            %LocalAppData%\go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('tools/go.sum') }}
-          restore-keys: ${{ runner.os }}-go-
-
-      - run: make tools lint generate git-check
+      - name: Set up tools
+        run: make tools
+      - name: Run linter
+        run: make lint
+      - name: Run fast check the state
+        run: make fast-check
 
   test:
+    name: Testing
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         go:
           - 1.x
-          - 1.18.x
           - 1.19.x
-
-    runs-on: ubuntu-latest
+          - 1.20.x
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the repository
+        uses: actions/checkout@v3
         with: { fetch-depth: 0 }
-      - uses: actions/setup-go@v4
-        with: { go-version: '${{ matrix.go }}', cache: true }
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-            ~/Library/Caches/go-build
-            %LocalAppData%\go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
-          restore-keys: ${{ runner.os }}-go-
+      - name: Set up Go environment
+        uses: actions/setup-go@v4
+        with: { go-version: '${{ matrix.go }}', check-latest: true }
 
-      - run: make env deps-fetch test-with-coverage
-      - uses: actions/upload-artifact@v3
-        if: matrix.go == '1.19.x'
+      - name: Set up environment
+        run: make env deps
+      - name: Run fast check source code
+        run: make go-check
+      - name: Run tests
+        run: make test
+        if: matrix.go != '1.20.x'
+      - name: Run tests with coverage report
+        run: make test-with-coverage
+        if: matrix.go == '1.20.x'
+      - name: Store code coverage report
+        uses: actions/upload-artifact@v3
+        if: matrix.go == '1.20.x'
         with: { name: code-coverage-report, path: c.out }
 
-      - run: make client install
-      - run: make server install
-      - run: '[ $(ls bin/linux/*/* | wc -l) = 2 ]'
+      - name: Check installation
+        run: |
+          make client install
+          make server install
+          [ $(ls bin/linux/*/* | wc -l) = 2 ]
 
   report:
+    name: Reporting
     needs: [ test ]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the repository
+        uses: actions/checkout@v3
         with: { fetch-depth: 0 }
-      - uses: actions/download-artifact@v3
+
+      - name: Fetch code coverage report
+        uses: actions/download-artifact@v3
         with: { name: code-coverage-report }
-      - uses: codecov/codecov-action@v3
+      - name: Send code coverage report to Codecov (codecov.io)
+        uses: codecov/codecov-action@v3
         with: { files: c.out }
 
   notify:
+    name: Notifying
     needs: [ lint, test ]
-    if: github.event_name == 'push' && (failure() || success())
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && (failure() || success())
 
     steps:
-      - uses: rtCamp/action-slack-notify@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with: { fetch-depth: 0 }
+      - name: Define notification message
+        id: message
+        uses: ./.github/actions/notify
+
+      - name: Send Slack notification
+        uses: rtCamp/action-slack-notify@v2
+        continue-on-error: true
         env:
           SLACK_COLOR: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+          SLACK_FOOTER: made with ❤️ for everyone by OctoLab
           SLACK_ICON: https://github.com/github.png?size=64
-          SLACK_TITLE: '${{ github.repository }}: ${{ github.workflow }}'
+          SLACK_MESSAGE: ${{ steps.message.outputs.txt }}
+          SLACK_TITLE: '⚙️ ${{ github.repository }}: ${{ github.workflow }}'
           SLACK_USERNAME: GitHub Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
