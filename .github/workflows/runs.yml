@@ -1,0 +1,74 @@
+name: Workflow invalidation
+
+on:
+  workflow_dispatch:
+    inputs:
+      pattern:
+        description: The name of workflow to clean.
+        type: choice
+        options:
+          - All
+          - Cache invalidation
+          - Continuous delivery
+          - Continuous integration
+          - Dependabot at weekends
+          - Documentation delivery
+          - Issue invalidation
+          - Tools validation
+          - Workflow invalidation
+        default: Workflow invalidation
+        required: true
+      dry_run:
+        description: Only log actions, do not perform any delete operations.
+        type: boolean
+        required: false
+      reason:
+        description: The reason for dispatching it manually.
+        type: string
+        default: manual healthcheck
+        required: true
+
+  schedule:
+    - cron: 0 6 1 * * # at 06:00 on day-of-month 1, UTC
+
+jobs:
+  delete:
+    name: Deleting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          delete_workflow_pattern: ${{ github.event.inputs.pattern || 'all' }}
+          dry_run: ${{ fromJSON('["", "true"]')[github.event.inputs.dry_run == 'true'] }}
+          retain_days: 0
+          keep_minimum_runs: 0
+
+  notify:
+    name: Notifying
+    needs: [ delete ]
+    runs-on: ubuntu-latest
+    if: failure() || success()
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with: { fetch-depth: 0 }
+      - name: Define notification message
+        id: message
+        uses: ./.github/actions/notify
+
+      - name: Send Slack notification
+        uses: rtCamp/action-slack-notify@v2
+        continue-on-error: true
+        env:
+          SLACK_COLOR: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+          SLACK_FOOTER: made with ❤️ for everyone by OctoLab
+          SLACK_ICON: https://github.com/github.png?size=64
+          SLACK_MESSAGE: ${{ steps.message.outputs.txt }}
+          SLACK_TITLE: '🗑️ ${{ github.repository }}: ${{ github.workflow }}'
+          SLACK_USERNAME: GitHub Actions
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
