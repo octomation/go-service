@@ -1,2 +1,6 @@
-# third-party dependencies
+# dependencies
 /node_modules/
+
+# generated files
+/.next/
+/dist/
