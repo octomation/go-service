@@ -32,6 +32,7 @@ $ TIMEOUT=5s make test-with-coverage
 
 ```bash
 $ alias run=./Taskfile
+$ run refresh
 $ run help
 
 $ run docs # === `run docs install -- build -- start`
@@ -151,8 +152,8 @@ or if you find an issue, [report it][action.issue] first.
 [^1]: An alternative for backup could be [GitLab](https://about.gitlab.com),
 [Gogs](https://gogs.io), or [Gitea](https://gitea.io).
 
-[^2]: It has been deprecated and will be replaced someday by GitHub Action.
-For more details, please see [the issue](https://github.com/octomation/go-module/issues/56).
+[^2]: It has been deprecated and will be replaced someday by
+[GitHub Actions](https://github.com/octomation/go-module/issues/56).
 
 ### Coming soon
 
