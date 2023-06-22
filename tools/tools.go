@@ -11,6 +11,7 @@ import (
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
 	_ "golang.org/x/tools/cmd/goimports"
+	_ "golang.org/x/vuln/cmd/govulncheck"
 	_ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
 	_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 )
@@ -21,5 +22,6 @@ import (
 //go:generate go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp
 //go:generate go install golang.org/x/tools/cmd/goimports
+//go:generate go install golang.org/x/vuln/cmd/govulncheck
 //go:generate go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 //go:generate go install google.golang.org/protobuf/cmd/protoc-gen-go
