@@ -13,8 +13,9 @@ Makefile        export-ignore
 Taskfile        export-ignore
 *.md            export-ignore
 
-*_test.go       export-ignore
+/tests/         export-ignore
 testdata/       export-ignore
+*_test.go       export-ignore
 
 go.sum          linguist-generated
 *.go            text eol=lf
