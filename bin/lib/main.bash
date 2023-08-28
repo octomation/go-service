@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck source=runtime/config.bash # @handle
+# shellcheck source=config/global.bash # $config @handle
 
 help() { @usage; }
 
@@ -12,10 +12,10 @@ EOF
 }
 
 @main() {
-  local args=()
-  IFS=' ' read -r -a args < <(@handle "${@}")
-
-  "${args[@]:-@usage}"
+  @handle "${@}"
+  shift "${config['shift']}"
+  [ -f .env ] && source .env
+  "${@:-@usage}"
 }
 
 @main "${@}"

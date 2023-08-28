@@ -227,11 +227,11 @@ $ source <(client completion)
 - https://github.com/tact-app/inbox
 - https://github.com/tact-app/service
 
-<p align="right">made with ❤️ for everyone by OctoLab</p>
+<p align="right">made with ❤️ for everyone by <a href="https://www.octolab.org/">OctoLab</a></p>
 
-[social.preview]:   https://socialify.git.ci/octomation/go-service/image?description=1&font=Raleway&language=1&name=1&owner=1&pattern=Circuit%20Board&theme=Light
+[social.preview]:   https://cdn.octolab.org/repo/go-service.png
 [preview.config]:   https://socialify.git.ci/octomation/go-service?description=1&font=Raleway&language=1&name=1&owner=1&pattern=Circuit%20Board&theme=Light
-[preview.fallback]: https://repository-images.githubusercontent.com/256576533/bf982df3-0bbc-44a1-8f55-e819eeb39a1c
+[preview.fallback]: https://socialify.git.ci/octomation/go-service/image?description=1&font=Raleway&language=1&name=1&owner=1&pattern=Circuit%20Board&theme=Light
 
 [awesome.icon]:     https://awesome.re/mentioned-badge.svg
 [awesome.page]:     https://awesome-go.com/project-layout/

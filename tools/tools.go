@@ -7,6 +7,8 @@ package tools
 import (
 	_ "github.com/golang/mock/mockgen"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
+	_ "github.com/goreleaser/godownloader"
+	_ "github.com/goreleaser/goreleaser"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
@@ -18,6 +20,8 @@ import (
 
 //go:generate go install github.com/golang/mock/mockgen
 //go:generate go install github.com/golangci/golangci-lint/cmd/golangci-lint
+//go:generate go install github.com/goreleaser/godownloader
+//go:generate go install github.com/goreleaser/goreleaser
 //go:generate go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
 //go:generate go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp

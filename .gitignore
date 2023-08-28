@@ -8,6 +8,6 @@
 /*.out
 
 # sensitive data
-private.env
-private.hosts
+*.env
+*.hosts
 http-client.private.env.json

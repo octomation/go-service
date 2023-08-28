@@ -1,75 +1,58 @@
----
-project_name: %template%
+project_name: service
 
 archives:
-  - id: %template%
+  - id: service
     builds:
-      - %template%
-      - %template%ctl
+      - client
+      - server
     files:
       - LICENSE
     format: tar.gz
     name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
-    rlcp: true
 
 brews:
-  - name: %template%
-    caveats: %template%
+  - name: service
+    caveats: An example of the goreleaser usage.
     commit_author:
       name: Kamil Samigullin
       email: kamil@samigullin.info
-    description: %template%
+    description: Template for a typical service written on Go.
     folder: Formula
-    homepage: %template%
-    tap:
-      owner: %template%
-      name: %template%
+    homepage: https://go-service.octolab.org/
+    repository:
+      owner: octolab
+      name: homebrew-tap
     install: |
-      bin.install "%template%"
+      bin.install "service"
 
-      output = Utils.popen_read("#{bin}/%template% completion bash")
-      (bash_completion/"%template%").write output
+      output = Utils.popen_read("#{bin}/server completion bash")
+      (bash_completion/"server").write output
 
-      output = Utils.popen_read("#{bin}/%template% completion fish")
-      (fish_completion/"%template%.fish").write output
+      output = Utils.popen_read("#{bin}/server completion fish")
+      (fish_completion/"server.fish").write output
 
-      output = Utils.popen_read("#{bin}/%template% completion zsh")
-      (zsh_completion/"_%template%").write output
+      output = Utils.popen_read("#{bin}/server completion zsh")
+      (zsh_completion/"_server").write output
 
-      bin.install "%template%ctl"
+      bin.install "serverctl"
 
-      output = Utils.popen_read("#{bin}/%template%ctl completion bash")
-      (bash_completion/"%template%ctl").write output
+      output = Utils.popen_read("#{bin}/serverctl completion bash")
+      (bash_completion/"serverctl").write output
 
-      output = Utils.popen_read("#{bin}/%template%ctl completion fish")
-      (fish_completion/"%template%.fish").write output
+      output = Utils.popen_read("#{bin}/serverctl completion fish")
+      (fish_completion/"serverctl.fish").write output
 
-      output = Utils.popen_read("#{bin}/%template%ctl completion zsh")
-      (zsh_completion/"_%template%ctl").write output
+      output = Utils.popen_read("#{bin}/serverctl completion zsh")
+      (zsh_completion/"_serverctl").write output
 
       prefix.install_metafiles
     test: |
-      system "#{bin}/%template%    version"
-      system "#{bin}/%template%ctl version"
+      system "#{bin}/server    version"
+      system "#{bin}/serverctl version"
 
 builds:
-  - id: %template%
-    binary: %template%
-    env:
-      - CGO_ENABLED=0
-    flags:
-      - -trimpath
-    goarch:
-      - amd64
-      - arm64
-    goos:
-      - darwin
-      - linux
-    ldflags:
-      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
-    main: ./cmd/server
-  - id: %template%ctl
-    binary: %template%ctl
+  - id: client
+    binary: serverctl
     env:
       - CGO_ENABLED=0
     flags:
@@ -83,10 +66,25 @@ builds:
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
     main: ./cmd/client
+  - id: server
+    binary: server
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/server
 
 checksum: { name_template: checksums.txt }
 
 release:
   github:
-    owner: %template%
-    name: %template%
+    owner: octomation
+    name: go-service
