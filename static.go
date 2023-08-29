@@ -9,7 +9,7 @@ import (
 
 var FS afero.Fs
 
-//go:embed .env
+//go:embed .env.example
 var env []byte
 
 func init() {
