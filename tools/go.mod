@@ -19,7 +19,7 @@ require (
 
 replace (
 	github.com/golangci/golangci-lint => github.com/kamilsk/golangci-lint v1.54.2
-	github.com/goreleaser/godownloader => github.com/kamilsk/godownloader v0.1.16
+	github.com/goreleaser/godownloader => github.com/kamilsk/godownloader v0.1.19
 	golang.org/x/tools => github.com/kamilsk/go-tools v0.13.0
 )
 
