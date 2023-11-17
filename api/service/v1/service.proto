@@ -1,0 +1,24 @@
+syntax = 'proto3';
+
+package api.service.v1;
+
+option go_package='servicev1';
+
+service GreeterService {
+  rpc Hello(HelloRequest) returns (HelloResponse);
+  rpc Sign(SignRequest) returns (SignResponse);
+}
+
+message HelloRequest {
+  string subject = 1;
+}
+
+message HelloResponse {
+  string text = 1;
+}
+
+message SignRequest {}
+
+message SignResponse {
+  bytes license = 1;
+}

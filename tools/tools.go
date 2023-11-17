@@ -5,27 +5,21 @@
 package tools
 
 import (
+	_ "github.com/bufbuild/buf/cmd/buf"
 	_ "github.com/golang/mock/mockgen"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/goreleaser/godownloader"
 	_ "github.com/goreleaser/goreleaser"
-	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
-	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
 	_ "golang.org/x/tools/cmd/goimports"
 	_ "golang.org/x/vuln/cmd/govulncheck"
-	_ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
-	_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 )
 
+//go:generate go install github.com/bufbuild/buf/cmd/buf
 //go:generate go install github.com/golang/mock/mockgen
 //go:generate go install github.com/golangci/golangci-lint/cmd/golangci-lint
 //go:generate go install github.com/goreleaser/godownloader
 //go:generate go install github.com/goreleaser/goreleaser
-//go:generate go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
-//go:generate go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp
 //go:generate go install golang.org/x/tools/cmd/goimports
 //go:generate go install golang.org/x/vuln/cmd/govulncheck
-//go:generate go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
-//go:generate go install google.golang.org/protobuf/cmd/protoc-gen-go

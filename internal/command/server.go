@@ -1,19 +1,27 @@
 package command
 
 import (
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	"net/http"
+	_ "net/http/pprof"
 
-	"go.octolab.org/template/service"
+	"github.com/spf13/cobra"
+	"go.octolab.org/unsafe"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
+
+	"go.octolab.org/template/service/internal/api/service/v1/servicev1connect"
 	"go.octolab.org/template/service/internal/config"
+	"go.octolab.org/template/service/internal/server"
 )
 
 // NewServer returns the new server command.
 func NewServer() *cobra.Command {
+	var cnf config.Server
+
 	command := cobra.Command{
-		Use:   "%template%",
-		Short: "%template%",
-		Long:  "%template%",
+		Use:   "pong",
+		Short: "server of service",
+		Long:  "Execute remote client commands.",
 
 		Args: cobra.NoArgs,
 
@@ -21,18 +29,27 @@ func NewServer() *cobra.Command {
 		SilenceUsage:  true,
 
 		RunE: func(cmd *cobra.Command, args []string) error {
-			viper.AutomaticEnv()
-			viper.SetFs(service.FS)
-			viper.SetConfigFile(".env")
-			if err := viper.ReadInConfig(); err != nil {
-				return err
+			mux := http.NewServeMux()
+			path, handler := servicev1connect.NewGreeterServiceHandler(
+				new(server.Connect),
+			)
+			twirp := server.Twirp()
+			mux.Handle(path, handler)
+			mux.Handle(twirp.PathPrefix(), twirp)
+
+			if cnf.Debug {
+				go func() {
+					unsafe.Ignore(http.ListenAndServe("localhost:3360", http.DefaultServeMux))
+				}()
 			}
 
-			var config config.Server
-			return viper.Unmarshal(&config)
+			return http.ListenAndServe(cnf.Host, h2c.NewHandler(mux, new(http2.Server)))
 		},
 	}
-	/* configure instance */
-	command.AddCommand( /* related commands */ )
+	flags := command.Flags()
+	flags.StringVar(&cnf.Host, "host", "localhost:8890", "server address")
+	flags.BoolVar(&cnf.Debug, "debug", false, "enable pprof")
+
+	command.AddCommand( /* add related commands */ )
 	return &command
 }
