@@ -5,12 +5,11 @@ repository:
 
   allow_forking: true
 
+  allow_auto_merge: false
   allow_merge_commit: false
-  allow_squash_merge: true
-  use_squash_pr_title_as_default: true
+  allow_squash_merge: false
   allow_rebase_merge: true
   allow_update_branch: false
-  allow_auto_merge: false
   delete_branch_on_merge: true
 
   default_branch: main

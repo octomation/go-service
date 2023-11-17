@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: 0 6 1 * * # at 06:00 on day-of-month 1, UTC
 
+  workflow_call:
+
   workflow_dispatch:
     inputs:
       reason:
@@ -16,7 +18,8 @@ jobs:
   delete:
     name: Deleting
     runs-on: ubuntu-latest
-
+    permissions:
+      actions: write
     env:
       GITHUB_TOKEN: ${{ github.token }}
 
@@ -40,7 +43,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with: { fetch-depth: 0 }
 
       - name: Send notification

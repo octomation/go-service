@@ -10,6 +10,8 @@ on:
   schedule:
     - cron: 0 7 1 * * # at 07:00 on day-of-month 1, UTC
 
+  workflow_call:
+
   workflow_dispatch:
     inputs:
       reason:
@@ -19,7 +21,7 @@ on:
         required: true
 
 concurrency:
-  group: pages
+  group: docs
   cancel-in-progress: true
 
 jobs:
@@ -29,24 +31,32 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with: { fetch-depth: 0 }
       - name: Set up Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.0.0
         with:
-          node-version: 18
+          node-version: 20
           cache: npm
           cache-dependency-path: docs/package-lock.json
           check-latest: true
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v3.0.6
       - name: Install dependencies
         run: ./Taskfile docs npm ci
-      - name: Set up GitHub Pages
-        uses: actions/configure-pages@v3
 
-      - name: Build static HTML with Next.js
-        run: ./Taskfile docs publish
+      - name: Build the documentation
+        run: |
+          path=$(
+            gh api repos/${{ github.repository }}/pages \
+              --jq '.html_url' |
+            awk -F'https?://[^/]+' '{print $2}'
+          )
+          TARGET=static BASE_PATH="${path%/}" ./Taskfile docs build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Upload the documentation
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v2.0.0
         with: { path: docs/dist }
 
   deploy:
@@ -57,14 +67,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
-      contents: read
       id-token: write
       pages: write
 
     steps:
       - name: Deploy it to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v2.0.4
 
   notify:
     name: Notifying
@@ -74,7 +83,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with: { fetch-depth: 0 }
 
       - name: Send notification

@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: 0 6 * * * # at 06:00 every day, UTC
 
+  workflow_call:
+
   workflow_dispatch:
     inputs:
       reason:
@@ -23,7 +25,7 @@ jobs:
 
     steps:
       - name: Close stale issues and PRs
-        uses: actions/stale@v8
+        uses: actions/stale@v8.0.0
         with:
           days-before-issue-stale: 30
           days-before-issue-close: 7
@@ -60,7 +62,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with: { fetch-depth: 0 }
 
       - name: Send notification

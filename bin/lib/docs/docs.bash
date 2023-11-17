@@ -24,7 +24,6 @@ docs() {
       dev) npx --no-install next dev ;;
       build) npx --no-install next build ;;
       start) npx --no-install next start ;;
-      publish) rm -rf dist/ && TARGET=static npx --no-install next build ;;
       --) continue ;;
       *) args+=("${arg}") ;;
       esac
