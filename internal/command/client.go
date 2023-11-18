@@ -7,8 +7,8 @@ import (
 	"connectrpc.com/connect"
 	"github.com/spf13/cobra"
 
-	v1 "go.octolab.org/template/service/internal/api/service/v1"
-	"go.octolab.org/template/service/internal/api/service/v1/servicev1connect"
+	v1 "go.octolab.org/template/service/api/rpc/v1"
+	"go.octolab.org/template/service/api/rpc/v1/v1connect"
 	"go.octolab.org/template/service/internal/config"
 )
 
@@ -39,7 +39,7 @@ func Hello(cnf *config.Server) *cobra.Command {
 		Short: "send a message to the service",
 		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			client := servicev1connect.NewGreeterServiceClient(http.DefaultClient, cnf.BaseURL())
+			client := v1connect.NewGreeterServiceClient(http.DefaultClient, cnf.BaseURL())
 			resp, err := client.Hello(cmd.Context(), connect.NewRequest(&v1.HelloRequest{
 				Subject: strings.Join(args, " "),
 			}))
@@ -58,7 +58,7 @@ func Sign(cnf *config.Server) *cobra.Command {
 		Short: "send a license request to the service",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			client := servicev1connect.NewGreeterServiceClient(http.DefaultClient, cnf.BaseURL())
+			client := v1connect.NewGreeterServiceClient(http.DefaultClient, cnf.BaseURL())
 			resp, err := client.Sign(cmd.Context(), connect.NewRequest(new(v1.SignRequest)))
 			if err != nil {
 				return err

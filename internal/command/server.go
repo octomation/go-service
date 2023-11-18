@@ -9,7 +9,7 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 
-	"go.octolab.org/template/service/internal/api/service/v1/servicev1connect"
+	"go.octolab.org/template/service/api/rpc/v1/v1connect"
 	"go.octolab.org/template/service/internal/config"
 	"go.octolab.org/template/service/internal/server"
 )
@@ -30,7 +30,7 @@ func NewServer() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			mux := http.NewServeMux()
-			path, handler := servicev1connect.NewGreeterServiceHandler(
+			path, handler := v1connect.NewGreeterServiceHandler(
 				new(server.Connect),
 			)
 			twirp := server.Twirp()

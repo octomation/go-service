@@ -3,15 +3,18 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: go.octolab.org/template/service/internal
+    default: go.octolab.org/template/service
+  override:
+    GO_PACKAGE:
+      api/rpc/v1/service.proto: 'go.octolab.org/template/service/api/rpc/v1'
 
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: internal
+    out: .
     opt: paths=source_relative
   - plugin: buf.build/connectrpc/go
-    out: internal
+    out: .
     opt: paths=source_relative
   - plugin: buf.build/grpc/go
-    out: internal
+    out: .
     opt: paths=source_relative

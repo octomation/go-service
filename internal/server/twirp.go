@@ -1,7 +1,7 @@
 package server
 
-import servicev1 "go.octolab.org/template/service/internal/api/service/v1"
+import v1 "go.octolab.org/template/service/api/rpc/v1"
 
-func Twirp() servicev1.TwirpServer {
-	return servicev1.NewGreeterServiceServer(new(GRPC))
+func Twirp() v1.TwirpServer {
+	return v1.NewGreeterServiceServer(new(GRPC))
 }

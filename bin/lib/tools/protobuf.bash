@@ -1,7 +1,11 @@
 protogen() {
-  rm -rf internal/api
+  rm -rf api/rpc/v1/*.go api/rpc/v1/*connect/
+
   buf generate
-  protoc --twirp_out=internal api/service/v1/service.proto
+  protoc \
+    --twirp_out=. \
+    api/rpc/v1/service.proto
+
   go mod tidy
   make format lint test
 }
