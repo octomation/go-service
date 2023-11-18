@@ -38,11 +38,16 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	root := command.NewServer()
+	cnf := config.Defaults
+	cnf.Build.Commit = commit
+	cnf.Build.Date = date
+	cnf.Build.Version = version
+
+	root := command.NewServer(&cnf)
 	root.SetErr(stderr)
 	root.SetOut(stdout)
 	root.AddCommand(
-		cobra.NewVersionCommand(version, date, commit, config.Features...),
+		cobra.NewVersionCommand(version, date, commit, cnf.Build.Features...),
 	)
 
 	safe.Do(func() error { return root.ExecuteContext(ctx) }, shutdown)

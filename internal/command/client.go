@@ -13,11 +13,9 @@ import (
 )
 
 // NewClient returns the new client command.
-func NewClient() *cobra.Command {
-	var cnf config.Server
-
+func NewClient(cnf *config.Service) *cobra.Command {
 	command := cobra.Command{
-		Use:   "ping",
+		Use:   "client",
 		Short: "client to the service",
 		Long:  "Run service commands remotely.",
 
@@ -27,13 +25,21 @@ func NewClient() *cobra.Command {
 		SilenceUsage:  true,
 	}
 	flags := command.PersistentFlags()
-	flags.StringVar(&cnf.Host, "host", "localhost:8890", "remote host")
+	flags.StringVar(
+		&cnf.Server.Connect.Host,
+		"host",
+		config.Defaults.Server.Connect.Host,
+		"remote rpc host",
+	)
 
-	command.AddCommand(Hello(&cnf), Sign(&cnf))
+	command.AddCommand(
+		Hello(&cnf.Server.Connect),
+		Sign(&cnf.Server.Connect),
+	)
 	return &command
 }
 
-func Hello(cnf *config.Server) *cobra.Command {
+func Hello(cnf *config.Protocol) *cobra.Command {
 	return &cobra.Command{
 		Use:   "hello",
 		Short: "send a message to the service",
@@ -52,7 +58,7 @@ func Hello(cnf *config.Server) *cobra.Command {
 	}
 }
 
-func Sign(cnf *config.Server) *cobra.Command {
+func Sign(cnf *config.Protocol) *cobra.Command {
 	return &cobra.Command{
 		Use:   "sign",
 		Short: "send a license request to the service",
