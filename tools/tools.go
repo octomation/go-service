@@ -6,20 +6,26 @@ package tools
 
 import (
 	_ "github.com/bufbuild/buf/cmd/buf"
+	_ "github.com/charmbracelet/gum"
 	_ "github.com/golang/mock/mockgen"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/goreleaser/godownloader"
 	_ "github.com/goreleaser/goreleaser"
+	_ "github.com/mikefarah/yq/v4"
+	_ "github.com/solo-io/protoc-gen-openapi"
 	_ "github.com/twitchtv/twirp/protoc-gen-twirp"
 	_ "golang.org/x/tools/cmd/goimports"
 	_ "golang.org/x/vuln/cmd/govulncheck"
 )
 
 //go:generate go install github.com/bufbuild/buf/cmd/buf
+//go:generate go install github.com/charmbracelet/gum
 //go:generate go install github.com/golang/mock/mockgen
 //go:generate go install github.com/golangci/golangci-lint/cmd/golangci-lint
 //go:generate go install github.com/goreleaser/godownloader
 //go:generate go install github.com/goreleaser/goreleaser
+//go:generate go install github.com/mikefarah/yq/v4
+//go:generate go install github.com/solo-io/protoc-gen-openapi
 //go:generate go install github.com/twitchtv/twirp/protoc-gen-twirp
 //go:generate go install golang.org/x/tools/cmd/goimports
 //go:generate go install golang.org/x/vuln/cmd/govulncheck

@@ -1,0 +1,62 @@
+components:
+  schemas:
+    api.rpc.v1.HelloRequest:
+      properties:
+        subject:
+          type: string
+      type: object
+    api.rpc.v1.HelloResponse:
+      properties:
+        text:
+          type: string
+      type: object
+    api.rpc.v1.SignRequest:
+      type: object
+    api.rpc.v1.SignResponse:
+      properties:
+        license:
+          format: byte
+          type: string
+      type: object
+info:
+  title: OctoLab Service API
+  version: "1.0.0"
+  description: OctoLab Service API Specification.
+  termsOfService: https://www.octolab.org/
+  contact:
+    name: OctoLab
+    url: https://www.octolab.org/
+    email: support@octolab.org
+  license:
+    name: MIT
+    url: https://www.octolab.org/license/MIT
+openapi: 3.0.1
+paths:
+  /twirp/api.service.v1.GreeterService/Hello:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.rpc.v1.HelloRequest'
+      responses:
+        '200':
+          description: Returns greetings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.rpc.v1.HelloResponse'
+  /twirp/api.service.v1.GreeterService/Sign:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.rpc.v1.SignRequest'
+      responses:
+        '200':
+          description: Returns license.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.rpc.v1.SignResponse'
