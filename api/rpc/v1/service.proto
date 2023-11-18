@@ -2,11 +2,20 @@ syntax = 'proto3';
 
 package api.rpc.v1;
 
-option go_package='api/rpc/v1;v1';
+import 'google/api/annotations.proto';
+
+option go_package = 'api/rpc/v1;v1';
 
 service GreeterService {
-  rpc Hello(HelloRequest) returns (HelloResponse);
-  rpc Sign(SignRequest) returns (SignResponse);
+  rpc Hello(HelloRequest) returns (HelloResponse) {
+    option (google.api.http) = {
+      post: '/v1/hello'
+      body: '*'
+    };
+  }
+  rpc Sign(SignRequest) returns (SignResponse) {
+    option (google.api.http) = {get: '/v1/sign'};
+  }
 }
 
 message HelloRequest {
