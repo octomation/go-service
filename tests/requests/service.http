@@ -1,6 +1,6 @@
 ### API
 
-POST {{service-api-host}}/twirp/api.service.v1.GreeterService/Hello
+POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Hello
 Content-Type: application/json
 
 {
@@ -9,14 +9,15 @@ Content-Type: application/json
 
 ###
 
-POST {{service-api-host}}/twirp/api.service.v1.GreeterService/Sign
+POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Sign
 Content-Type: application/json
 
 {}
 
 ###
 
-GRPC {{service-api-host}}/api.service.v1.GreeterService/Hello
+POST {{service-gateway}}/v1/hello
+Content-Type: application/json
 
 {
   "subject": "World"
@@ -24,8 +25,20 @@ GRPC {{service-api-host}}/api.service.v1.GreeterService/Hello
 
 ###
 
-GRPC {{service-api-host}}/api.service.v1.GreeterService/Sign
+GET {{service-gateway}}/v1/sign
+
+###
+
+GRPC {{service-grpc-host}}/api.rpc.v1.GreeterService/Hello
+
+{
+  "subject": "World"
+}
+
+###
+
+GRPC {{service-grpc-host}}/api.rpc.v1.GreeterService/Sign
 
 ### Debug
 
-GET {{service-debug-host}}/debug/pprof/
+GET {{service-profile-host}}/debug/pprof/
