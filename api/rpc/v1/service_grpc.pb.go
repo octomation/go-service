@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: api/service/v1/service.proto
+// source: api/rpc/v1/service.proto
 
-package servicev1
+package v1
 
 import (
 	context "context"
@@ -20,8 +20,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	GreeterService_Hello_FullMethodName = "/api.service.v1.GreeterService/Hello"
-	GreeterService_Sign_FullMethodName  = "/api.service.v1.GreeterService/Sign"
+	GreeterService_Hello_FullMethodName = "/api.rpc.v1.GreeterService/Hello"
+	GreeterService_Sign_FullMethodName  = "/api.rpc.v1.GreeterService/Sign"
 )
 
 // GreeterServiceClient is the client API for GreeterService service.
@@ -130,7 +130,7 @@ func _GreeterService_Sign_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GreeterService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.service.v1.GreeterService",
+	ServiceName: "api.rpc.v1.GreeterService",
 	HandlerType: (*GreeterServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -143,5 +143,5 @@ var GreeterService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/service/v1/service.proto",
+	Metadata: "api/rpc/v1/service.proto",
 }

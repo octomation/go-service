@@ -1,6 +1,6 @@
 version: v1
 
-name: buf.build/octomation/service
+name: buf.build/octomation/go-service
 
 breaking:
   use:
