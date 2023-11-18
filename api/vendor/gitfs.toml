@@ -1,0 +1,21 @@
+[google.api]
+src = "git@github.com:googleapis/googleapis.git"
+rev = "c357f69dca8745eacffc7e3226f102336ab9b824"
+
+[[google.api.files]]
+path = "google/api"
+include = [
+  "annotations.proto",
+  "http.proto",
+]
+
+
+[google.protobuf]
+src = "git@github.com:protocolbuffers/protobuf.git"
+rev = "c9a8b46fd0613049e9bd565caa3a94ad0acc6ed4"
+
+[[google.protobuf.files]]
+path = "src/google/protobuf"
+include = [
+  "descriptor.proto"
+]
