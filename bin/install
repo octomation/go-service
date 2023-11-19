@@ -62,10 +62,10 @@ execute() {
 }
 get_binaries() {
   case "$PLATFORM" in
-  darwin/amd64) BINARIES="serverctl server" ;;
-  darwin/arm64) BINARIES="serverctl server" ;;
-  linux/amd64) BINARIES="serverctl server" ;;
-  linux/arm64) BINARIES="serverctl server" ;;
+  darwin/amd64) BINARIES="client server" ;;
+  darwin/arm64) BINARIES="client server" ;;
+  linux/amd64) BINARIES="client server" ;;
+  linux/arm64) BINARIES="client server" ;;
   *)
     log_crit "platform $PLATFORM is not supported. Make sure this script is up-to-date and file request at https://github.com/${PREFIX}/issues/new"
     exit 1
@@ -335,7 +335,7 @@ EOF
 PROJECT_NAME="service"
 OWNER=octomation
 REPO="go-service"
-BINARY=serverctl
+BINARY=client
 FORMAT=tar.gz
 OS=$(uname_os)
 ARCH=$(uname_arch)

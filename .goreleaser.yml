@@ -34,25 +34,25 @@ brews:
       output = Utils.popen_read("#{bin}/server completion zsh")
       (zsh_completion/"_server").write output
 
-      bin.install "serverctl"
+      bin.install "client"
 
-      output = Utils.popen_read("#{bin}/serverctl completion bash")
-      (bash_completion/"serverctl").write output
+      output = Utils.popen_read("#{bin}/client completion bash")
+      (bash_completion/"client").write output
 
-      output = Utils.popen_read("#{bin}/serverctl completion fish")
-      (fish_completion/"serverctl.fish").write output
+      output = Utils.popen_read("#{bin}/client completion fish")
+      (fish_completion/"client.fish").write output
 
-      output = Utils.popen_read("#{bin}/serverctl completion zsh")
-      (zsh_completion/"_serverctl").write output
+      output = Utils.popen_read("#{bin}/client completion zsh")
+      (zsh_completion/"_client").write output
 
       prefix.install_metafiles
     test: |
-      system "#{bin}/server    version"
-      system "#{bin}/serverctl version"
+      system "#{bin}/server version"
+      system "#{bin}/client version"
 
 builds:
   - id: client
-    binary: serverctl
+    binary: client
     env:
       - CGO_ENABLED=0
     flags:
