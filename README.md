@@ -82,7 +82,7 @@ $ client call
 
 ## 🏆 Motivation
 
-At [OctoLab][octolab.site], we want to start new projects faster using best practices
+At [OctoLab](https://www.octolab.org/), we want to start new projects faster using best practices
 with a predefined structure and focusing on core ideas implementation
 rather than wasting time on environment configuration and copying boilerplate code.
 
@@ -108,61 +108,63 @@ Before you start, please make sure your changes are in demand.
 The best for that is to create [a new discussion][action.discuss],
 or if you find an issue, [report it][action.issue] first.
 
+[action.discuss]:   https://github.com/octomation/go-service/discussions/new/choose
+[action.fork]:      https://github.com/octomation/go-service/fork
+[action.generate]:  https://github.com/octomation/go-service/generate
+[action.issue]:     https://github.com/octomation/go-service/issues/new/choose
+[docs.contrib]:     https://github.com/octomation/.github/blob/main/.github/CONTRIBUTING.md
+
 ## 🎛️ Configuration
 
 ### Pre-configured
 
 1. [GitHub Actions](https://github.com/features/actions).
-2. [GitHub Pages](https://pages.github.com).
+2. [GitHub Pages](https://pages.github.com/).
 3. [Dependabot](https://github.com/dependabot).
 
 ### Included
 
-1. [Nextra](https://nextra.site).
-2. [Makefiles](https://github.com/octomation/makefiles).
-3. [Taskfiles](https://github.com/octomation/taskfiles).
-4. [Go tools][egg]: [mockgen][], [golangci-lint][],
-   [goimports][], [govulncheck][], [protobuf][]
-    - [grpc][],
-    - [grpc-gateway][],
-    - [twirp][].
-
-[mockgen]:          https://github.com/golang/mock
-[govulncheck]:      https://github.com/golang/vuln
-[goreleaser]:       https://github.com/goreleaser/goreleaser
-[egg]:              https://github.com/kamilsk/egg
-[goimports]:        https://github.com/kamilsk/go-tools
-[godownloader]:     https://github.com/kamilsk/godownloader
-[golangci-lint]:    https://github.com/kamilsk/golangci-lint
-[protobuf]:         https://github.com/protocolbuffers/protobuf-go
-[grpc]:             https://github.com/grpc/grpc-go
-[grpc-gateway]:     https://github.com/grpc-ecosystem/grpc-gateway
-[twirp]:            https://github.com/twitchtv/twirp
+1. [Nextra](https://nextra.site/).
+2. [Makefiles](https://makefiles.octolab.org/).
+3. [Taskfiles](https://taskfiles.octolab.org/).
+4. [Go tools](https://github.com/kamilsk/egg):
+   - [mockgen](https://github.com/golang/mock)
+   - [goimports](https://goimports.octolab.org/)
+   - [golangci-lint](https://golangci-lint.octolab.org/)
+   - [govulncheck](https://github.com/golang/vuln)
+   - [goreleaser](https://goreleaser.com/)
+   - [godownloader](https://godownloader.octolab.org/)
+   - [protobuf](https://protobuf.dev/)
+   - [buf](https://buf.build/)
+   - [grpc](https://grpc.io/)
+   - [grpc-gateway](https://grpc-ecosystem.github.io/grpc-gateway/)
+   - [twirp](https://twitchtv.github.io/twirp/)
 
 ### Optional
 
-1. [Bitbucket](https://bitbucket.org)[^1].
-2. [Codecov](https://about.codecov.io).
+1. [Bitbucket](https://bitbucket.org/)[^1].
+2. [Codecov](https://about.codecov.io/).
 3. [Slack](https://github.com/marketplace/slack-github).
 4. [Settings](https://github.com/apps/settings)[^2].
-5. [Go Report Card](https://goreportcard.com).
-6. [Shields.io](https://shields.io).
-7. [GitHub Socialify](https://socialify.git.ci).
+5. [Go Report Card](https://goreportcard.com/).
+6. [Shields.io](https://shields.io/).
+7. [GitHub Socialify](https://socialify.git.ci/).
 
-[^1]: An alternative for backup could be [GitLab](https://about.gitlab.com),
-[Gogs](https://gogs.io), or [Gitea](https://gitea.io).
+[^1]: An alternative for backup could be [GitLab](https://about.gitlab.com/),
+[Gogs](https://gogs.io/), or [Gitea](https://gitea.io/).
 
 [^2]: It has been deprecated and will be replaced someday by
 [GitHub Actions](https://github.com/octomation/go-module/issues/56).
 
 ### Coming soon
 
-1. [CodeQL](https://codeql.github.com) (code scanning).
-2. [Graphite](https://graphite.dev) (git workflow).
-3. [Qodana](https://qodana.cloud) (code quality).
-4. [SonarCloud](https://sonarcloud.io) (code quality).
-5. [Vanity URL](https://github.com/octomation/vanity) (canonical import path).
-6. [Vercel](https://vercel.com) (docs preview).
+1. [Cloudflare Pages](https://pages.cloudflare.com/) (docs hosting).
+2. [CodeQL](https://codeql.github.com/) (code scanning).
+3. [Graphite](https://graphite.dev/) (git workflow).
+4. [Qodana](https://qodana.cloud/) (code quality).
+5. [SonarCloud](https://sonarcloud.io/) (code quality).
+6. [Vanity URL](https://vanity.octolab.org/) (canonical import path).
+7. [Vercel](https://vercel.com/) (docs hosting).
 
 ## 🛬 Installation
 
@@ -187,8 +189,8 @@ $ wget -qO-  https://install.octolab.org/octomation/service | sh
 $ go get go.octolab.org/template/service/cmd/client@latest
 $ go get go.octolab.org/template/service/cmd/server@latest
 # or use egg tool
-$ egg tools add go.octolab.org/template/tool/cmd/client@latest
-$ egg tools add go.octolab.org/template/tool/cmd/server@latest
+$ egg tools add go.octolab.org/template/service/cmd/client@latest
+$ egg tools add go.octolab.org/template/service/cmd/server@latest
 ```
 
 ### Shell completions
@@ -203,29 +205,25 @@ $ source <(client completion)
 
 ### Input
 
-- https://github.com/kamilsk/octopus
 - https://github.com/octomation/go-tool
 - https://github.com/octopot/forma
 - https://github.com/octopot/guard
+- https://github.com/octopot/octopus
 - https://github.com/octopot/passport
 - https://github.com/octopot/tablo
 
 ### Impact
 
 - https://github.com/octomation/app
-- https://github.com/octomation/maintainer
 - https://github.com/octomation/install
+- https://github.com/octomation/maintainer
 - https://github.com/octomation/makefiles
 - https://github.com/octomation/taskfiles
 - https://github.com/octomation/vanity
 
 ### Output
 
-- https://github.com/octomation/tablo
-- https://github.com/tact-app/beads
-- https://github.com/tact-app/click
-- https://github.com/tact-app/inbox
-- https://github.com/tact-app/service
+- https://github.com/withsparkle/service
 
 <p align="right">made with ❤️ for everyone by <a href="https://www.octolab.org/">OctoLab</a></p>
 
@@ -244,15 +242,8 @@ $ source <(client completion)
 [build.icon]:       https://img.shields.io/badge/ci%2Fcd-GitHub%20Actions-brightgreen
 [build.page]:       https://github.com/octomation/go-service/actions
 [site.icon]:        https://img.shields.io/badge/site-GitHub%20Pages-brightgreen
-[site.page]:        https://go-service.octolab.org
+[site.page]:        https://go-service.octolab.org/
 [mirror.icon]:      https://img.shields.io/badge/mirror-Bitbucket-blue
 [mirror.page]:      https://bitbucket.org/kamilsk/go-service
 [template.icon]:    https://img.shields.io/badge/template-go--service-blue
 [template.page]:    https://github.com/octomation/go-service
-
-[action.discuss]:   https://github.com/octomation/go-service/discussions/new/choose
-[action.fork]:      https://github.com/octomation/go-service/fork
-[action.generate]:  https://github.com/octomation/go-service/generate
-[action.issue]:     https://github.com/octomation/go-service/issues/new/choose
-[docs.contrib]:     https://github.com/octomation/.github/blob/main/.github/CONTRIBUTING.md
-[octolab.site]:     https://github.com/octolab
