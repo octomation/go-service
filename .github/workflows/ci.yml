@@ -104,7 +104,7 @@ jobs:
   release:
     name: Releasing
     needs: [ test ]
-    uses: ./.github/workflows/cd.bins.yml
+    uses: ./.github/workflows/cd.dist.yml
     secrets:
       GORELEASER_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
     if: startsWith(github.ref, 'refs/tags/v')
