@@ -30,3 +30,4 @@ COPY --from=builder /service/server /service/deploy/config.toml /
 EXPOSE 3360 8080 8081 8890 8891
 
 ENTRYPOINT ["/server"]
+CMD ["run"]

@@ -44,37 +44,51 @@ func NewServer(cnf *config.Service) *cobra.Command {
 			}
 			return v.Unmarshal(cnf)
 		},
+	}
 
+	flags := command.PersistentFlags()
+	flags.StringVarP(&path, "config", "c", "config.toml", "path to config file")
+	command.AddCommand(
+		Run(&cnf.Server),
+	)
+	return &command
+}
+
+func Run(cnf *config.Server) *cobra.Command {
+	command := cobra.Command{
+		Use:   "run",
+		Short: "run the server",
+		Long:  "Start listening required protocols.",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if cnf.Server.Twirp.IsEnabled() {
+			if cnf.Twirp.IsEnabled() {
 				twirp := server.Twirp()
 				mux := http.NewServeMux()
 				mux.Handle(twirp.PathPrefix(), twirp)
 				go func() {
-					cmd.Println("twirp server starts listening", cnf.Server.Twirp.BaseURL())
+					cmd.Println("twirp server starts listening", cnf.Twirp.BaseURL())
 					cmd.Println("twirp server status:", http.ListenAndServe(
-						cnf.Server.Twirp.Address,
+						cnf.Twirp.Address,
 						mux,
 					))
 				}()
 			}
-			if cnf.Server.GRPC.IsEnabled() {
-				listener, err := net.Listen("tcp", cnf.Server.GRPC.Address)
+			if cnf.GRPC.IsEnabled() {
+				listener, err := net.Listen("tcp", cnf.GRPC.Address)
 				if err != nil {
 					return err
 				}
 				srv := grpc.NewServer()
 				v1.RegisterGreeterServiceServer(srv, new(server.GRPC))
 				go func() {
-					cmd.Println("grpc server starts listening", "tcp://"+cnf.Server.GRPC.Address)
+					cmd.Println("grpc server starts listening", "tcp://"+cnf.GRPC.Address)
 					cmd.Println("grpc server status:", srv.Serve(listener))
 				}()
-				if cnf.Server.Gateway.IsEnabled() {
+				if cnf.Gateway.IsEnabled() {
 					mux := runtime.NewServeMux()
 					if err := v1.RegisterGreeterServiceHandlerFromEndpoint(
 						cmd.Context(),
 						mux,
-						cnf.Server.GRPC.Address,
+						cnf.GRPC.Address,
 						[]grpc.DialOption{
 							grpc.WithTransportCredentials(insecure.NewCredentials()),
 						},
@@ -82,20 +96,20 @@ func NewServer(cnf *config.Service) *cobra.Command {
 						return err
 					}
 					go func() {
-						cmd.Println("gateway starts listening", cnf.Server.Gateway.BaseURL())
+						cmd.Println("gateway starts listening", cnf.Gateway.BaseURL())
 						cmd.Println("gateway status:", http.ListenAndServe(
-							cnf.Server.Gateway.Address,
+							cnf.Gateway.Address,
 							mux,
 						))
 					}()
 				}
 			}
-			if cnf.Server.Profile.IsEnabled() {
+			if cnf.Profile.IsEnabled() {
 				mux := http.DefaultServeMux
 				go func() {
-					cmd.Println("profiler starts listening", cnf.Server.Profile.BaseURL())
+					cmd.Println("profiler starts listening", cnf.Profile.BaseURL())
 					cmd.Println("profiler status:", http.ListenAndServe(
-						cnf.Server.Profile.Address,
+						cnf.Profile.Address,
 						mux,
 					))
 				}()
@@ -105,11 +119,11 @@ func NewServer(cnf *config.Service) *cobra.Command {
 			path, handler := v1connect.NewGreeterServiceHandler(new(server.Connect))
 			mux.Handle(path, handler)
 			srv := &http.Server{
-				Addr:    cnf.Server.Connect.Address,
+				Addr:    cnf.Connect.Address,
 				Handler: h2c.NewHandler(mux, new(http2.Server)),
 			}
 			go func() {
-				cmd.Println("rpc server starts listening", cnf.Server.Connect.BaseURL())
+				cmd.Println("rpc server starts listening", cnf.Connect.BaseURL())
 				cmd.Println("rpc server status:", srv.ListenAndServe())
 			}()
 			err := sync.Termination().Wait(cmd.Context())
@@ -120,10 +134,7 @@ func NewServer(cnf *config.Service) *cobra.Command {
 			return err
 		},
 	}
-	flags := command.PersistentFlags()
-	flags.StringVarP(&path, "config", "c", "config.toml", "path to config file")
-	flags.StringVar(&cnf.Server.Connect.Address, "host", "", "remote rpc host")
-
-	command.AddCommand( /* add related commands */ )
+	flags := command.Flags()
+	flags.StringVar(&cnf.Connect.Address, "host", "", "remote rpc host")
 	return &command
 }

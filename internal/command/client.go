@@ -37,10 +37,10 @@ func NewClient(cnf *config.Service) *cobra.Command {
 			return v.Unmarshal(cnf)
 		},
 	}
+
 	flags := command.PersistentFlags()
 	flags.StringVarP(&path, "config", "c", "config.toml", "path to config file")
 	flags.StringVar(&cnf.Server.Connect.Address, "host", "", "remote rpc host")
-
 	command.AddCommand(
 		Hello(&cnf.Server.Connect),
 		Sign(&cnf.Server.Connect),

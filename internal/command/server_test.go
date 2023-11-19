@@ -6,11 +6,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	. "go.octolab.org/template/service/internal/command"
+	"go.octolab.org/template/service/internal/command"
+	"go.octolab.org/template/service/internal/config"
 )
 
 func TestNewServer(t *testing.T) {
-	root := NewServer()
+	root := command.NewServer(new(config.Service))
 	require.NotNil(t, root)
 	assert.NotEmpty(t, root.Use)
 	assert.NotEmpty(t, root.Short)
