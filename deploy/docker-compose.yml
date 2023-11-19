@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  service:
+    image: ghcr.io/octomation/go-service:latest
+    ports:
+      - '3360:3360'
+      - '8080:8080'
+      - '8081:8081'
+      - '8890:8890'
+      - '8891:8891'

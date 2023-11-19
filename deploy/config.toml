@@ -1,0 +1,29 @@
+name = "service"
+
+[[build.features]]
+enabled = true
+uid = "15c05532-6136-4e25-aed5-0c73f975ea40"
+name = "template"
+brief = "One possible example how to use features."
+docs = "https://go-service.octolab.org/"
+rfc = "https://github.com/octomation/go-service/discussions"
+
+[server.profile]
+address = "0.0.0.0:3360"
+secured = false
+
+[server.twirp]
+address = "0.0.0.0:8080"
+secured = false
+
+[server.gateway]
+address = "0.0.0.0:8081"
+secured = false
+
+[server.connect]
+address = "0.0.0.0:8890"
+secured = false
+
+[server.grpc]
+address = "0.0.0.0:8891"
+secured = false

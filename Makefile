@@ -312,7 +312,7 @@ go-server:
 .PHONY: go-server
 
 go-dist-check:
-	$(AT) goreleaser --clean --skip-publish --snapshot
+	$(AT) goreleaser check
 .PHONY: go-dist-check
 
 go-dist-clean:
@@ -322,6 +322,10 @@ go-dist-clean:
 go-dist-installer:
 	$(AT) godownloader .goreleaser.yml >bin/install
 .PHONY: go-dist-installer
+
+go-dist-snapshot:
+	$(AT) goreleaser --clean --snapshot
+.PHONY: go-dist-snapshot
 
 TOOLFLAGS ?= -mod=
 
@@ -486,6 +490,9 @@ client: go-client
 
 server: go-server
 .PHONY: server
+
+build: go-build
+.PHONY: build
 
 install: go-install
 .PHONY: install
