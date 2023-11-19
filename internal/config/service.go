@@ -6,17 +6,6 @@ import (
 	"go.octolab.org/toolkit/config"
 )
 
-var Defaults = Service{
-	Name: "service",
-	Server: Server{
-		Profile: Protocol{Host: "localhost:3360"},
-		Twirp:   Protocol{Host: "localhost:8080"},
-		Gateway: Protocol{Host: "localhost:8081"},
-		Connect: Protocol{Host: "localhost:8890"},
-		GRPC:    Protocol{Host: "localhost:8891"},
-	},
-}
-
 type Service struct {
 	Name  string
 	Build struct {
@@ -37,15 +26,15 @@ type Server struct {
 }
 
 type Protocol struct {
-	Host   string
-	Secure bool
+	Address string
+	Secured bool
 }
 
 func (proto Protocol) BaseURL() string {
-	base := proto.Host
+	base := proto.Address
 	if !strings.Contains(base, "://") {
 		scheme := "http://"
-		if proto.Secure {
+		if proto.Secured {
 			scheme = "https://"
 		}
 		base = scheme + base
@@ -54,5 +43,5 @@ func (proto Protocol) BaseURL() string {
 }
 
 func (proto Protocol) IsEnabled() bool {
-	return proto.Host != ""
+	return proto.Address != ""
 }

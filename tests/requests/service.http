@@ -1,21 +1,5 @@
 ### API
 
-POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Hello
-Content-Type: application/json
-
-{
-  "subject": "World"
-}
-
-###
-
-POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Sign
-Content-Type: application/json
-
-{}
-
-###
-
 POST {{service-gateway}}/v1/hello
 Content-Type: application/json
 
@@ -39,6 +23,22 @@ GRPC {{service-grpc-host}}/api.rpc.v1.GreeterService/Hello
 
 GRPC {{service-grpc-host}}/api.rpc.v1.GreeterService/Sign
 
-### Debug
+###
+
+POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Hello
+Content-Type: application/json
+
+{
+  "subject": "World"
+}
+
+###
+
+POST {{service-twirp-host}}/twirp/api.rpc.v1.GreeterService/Sign
+Content-Type: application/json
+
+{}
+
+### Profiler
 
 GET {{service-profile-host}}/debug/pprof/

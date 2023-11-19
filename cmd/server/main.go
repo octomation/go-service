@@ -38,12 +38,12 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	cnf := config.Defaults
+	cnf := new(config.Service)
 	cnf.Build.Commit = commit
 	cnf.Build.Date = date
 	cnf.Build.Version = version
 
-	root := command.NewServer(&cnf)
+	root := command.NewServer(cnf)
 	root.SetErr(stderr)
 	root.SetOut(stdout)
 	root.AddCommand(

@@ -6,6 +6,7 @@ import (
 
 	"connectrpc.com/connect"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	v1 "go.octolab.org/template/service/api/rpc/v1"
 	"go.octolab.org/template/service/api/rpc/v1/v1connect"
@@ -14,6 +15,10 @@ import (
 
 // NewClient returns the new client command.
 func NewClient(cnf *config.Service) *cobra.Command {
+	var path string
+	v := viper.New()
+	v.AddConfigPath(".")
+
 	command := cobra.Command{
 		Use:   "client",
 		Short: "client to the service",
@@ -23,14 +28,18 @@ func NewClient(cnf *config.Service) *cobra.Command {
 
 		SilenceErrors: false,
 		SilenceUsage:  true,
+
+		PersistentPreRunE: func(*cobra.Command, []string) error {
+			v.SetConfigFile(path)
+			if err := v.ReadInConfig(); err != nil {
+				return err
+			}
+			return v.Unmarshal(cnf)
+		},
 	}
 	flags := command.PersistentFlags()
-	flags.StringVar(
-		&cnf.Server.Connect.Host,
-		"host",
-		config.Defaults.Server.Connect.Host,
-		"remote rpc host",
-	)
+	flags.StringVarP(&path, "config", "c", "config.toml", "path to config file")
+	flags.StringVar(&cnf.Server.Connect.Address, "host", "", "remote rpc host")
 
 	command.AddCommand(
 		Hello(&cnf.Server.Connect),
