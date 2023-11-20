@@ -15,7 +15,7 @@ on:
         required: true
 
 concurrency:
-  group: bins
+  group: dist
   cancel-in-progress: true
 
 jobs:

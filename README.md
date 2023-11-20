@@ -214,6 +214,7 @@ $ source <(client completion)
 
 ### Impact
 
+- https://github.com/octolab/homebrew-tap
 - https://github.com/octomation/app
 - https://github.com/octomation/install
 - https://github.com/octomation/maintainer
