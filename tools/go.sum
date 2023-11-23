@@ -987,8 +987,8 @@ github.com/mgechev/revive v1.3.4/go.mod h1:W+pZCMu9qj8Uhfs1iJMQsEFLRozUfvwFwqVvR
 github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b/go.mod h1:01TrycV0kFyexm33Z7vhZRXopbI8J3TDReVlkTgMUxE=
 github.com/microcosm-cc/bluemonday v1.0.23 h1:SMZe2IGa0NuHvnVNAZ+6B38gsTbi5e4sViiWJyDDqFY=
 github.com/microcosm-cc/bluemonday v1.0.23/go.mod h1:mN70sk7UkkF8TUr2IGBpNN0jAgStuPzlK76QuruE/z4=
-github.com/mikefarah/yq/v4 v4.40.2 h1:KA+s3fc1sB8GhOJOAzoyJlNJSD6u7+nbXJmcwCSCviU=
-github.com/mikefarah/yq/v4 v4.40.2/go.mod h1:TSqdLNAFlwmIGQBQYIzeOX+wDWkCTWfRGWDrxQwGCaQ=
+github.com/mikefarah/yq/v4 v4.40.3 h1:pSJua3IGua3O+HFXp5LkMheqEOHMRQAkkCcgVhqi4VY=
+github.com/mikefarah/yq/v4 v4.40.3/go.mod h1:TSqdLNAFlwmIGQBQYIzeOX+wDWkCTWfRGWDrxQwGCaQ=
 github.com/mitchellh/copystructure v1.0.0/go.mod h1:SNtv71yrdKgLRyLFxmLdkAbkKEFWgYaq1OVrnRcwhnw=
 github.com/mitchellh/copystructure v1.2.0 h1:vpKXTN4ewci03Vljg/q9QvCGUDttBOGBIa15WveJJGw=
 github.com/mitchellh/copystructure v1.2.0/go.mod h1:qLl+cE2AmVv+CoeAwDPye/v+N2HKCj9FbZEVFJRxO9s=
