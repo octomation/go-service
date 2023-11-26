@@ -11,7 +11,7 @@ require (
 	github.com/golangci/golangci-lint v1.55.2
 	github.com/goreleaser/godownloader v0.1.0
 	github.com/goreleaser/goreleaser v1.22.1
-	github.com/mikefarah/yq/v4 v4.40.2
+	github.com/mikefarah/yq/v4 v4.40.3
 	github.com/solo-io/protoc-gen-openapi v0.1.1
 	github.com/twitchtv/twirp v8.1.3+incompatible
 	golang.org/x/tools v0.15.0
