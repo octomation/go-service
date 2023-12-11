@@ -3,7 +3,7 @@ module go.octolab.org/template/service
 go 1.20
 
 require (
-	connectrpc.com/connect v1.12.0
+	connectrpc.com/connect v1.13.0
 	github.com/fatih/color v1.16.0
 	github.com/golang/mock v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
