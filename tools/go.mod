@@ -11,7 +11,7 @@ require (
 	github.com/golangci/golangci-lint v1.55.2
 	github.com/goreleaser/godownloader v0.1.0
 	github.com/goreleaser/goreleaser v1.22.1
-	github.com/mikefarah/yq/v4 v4.40.3
+	github.com/mikefarah/yq/v4 v4.40.5
 	github.com/solo-io/protoc-gen-openapi v0.1.1
 	github.com/twitchtv/twirp v8.1.3+incompatible
 	golang.org/x/tools v0.15.0
@@ -80,7 +80,7 @@ require (
 	github.com/alecthomas/kingpin/v2 v2.3.2 // indirect
 	github.com/alecthomas/kong v0.8.1 // indirect
 	github.com/alecthomas/mango-kong v0.1.0 // indirect
-	github.com/alecthomas/participle/v2 v2.1.0 // indirect
+	github.com/alecthomas/participle/v2 v2.1.1 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/alexkohler/nakedret/v2 v2.0.2 // indirect
@@ -423,7 +423,7 @@ require (
 	github.com/ykadowak/zerologlint v0.1.3 // indirect
 	github.com/yuin/goldmark v1.5.4 // indirect
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
-	github.com/yuin/gopher-lua v1.1.0 // indirect
+	github.com/yuin/gopher-lua v1.1.1 // indirect
 	gitlab.com/bosi/decorder v0.4.1 // indirect
 	gitlab.com/digitalxero/go-conventional-commit v1.0.7 // indirect
 	go-simpler.org/sloglint v0.1.2 // indirect
@@ -439,15 +439,15 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	gocloud.dev v0.34.0 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
+	golang.org/x/crypto v0.16.0 // indirect
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/exp/typeparams v0.0.0-20230307190834-24139beb5833 // indirect
 	golang.org/x/mod v0.14.0 // indirect
-	golang.org/x/net v0.18.0 // indirect
+	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/oauth2 v0.13.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.14.0 // indirect
-	golang.org/x/term v0.14.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/term v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
