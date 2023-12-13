@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	github.com/bufbuild/buf v1.28.1
-	github.com/charmbracelet/gum v0.12.0
+	github.com/charmbracelet/gum v0.13.0
 	github.com/golang/mock v1.6.0
 	github.com/golangci/golangci-lint v1.55.2
 	github.com/goreleaser/godownloader v0.1.0
@@ -148,7 +148,7 @@ require (
 	github.com/charmbracelet/bubbletea v0.24.2 // indirect
 	github.com/charmbracelet/glamour v0.6.1-0.20230531150759-6d5b52861a9d // indirect
 	github.com/charmbracelet/lipgloss v0.9.1 // indirect
-	github.com/charmbracelet/log v0.3.0 // indirect
+	github.com/charmbracelet/log v0.3.1 // indirect
 	github.com/charmbracelet/x/exp/ordered v0.0.0-20231010190216-1cb11efc897d // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20220327082430-c57b701bfc08 // indirect
