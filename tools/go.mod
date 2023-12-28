@@ -20,8 +20,8 @@ require (
 
 replace (
 	github.com/golangci/golangci-lint => github.com/kamilsk/golangci-lint v1.55.2
-	github.com/goreleaser/godownloader => github.com/kamilsk/godownloader v0.1.21
-	golang.org/x/tools => github.com/kamilsk/go-tools v0.15.0
+	github.com/goreleaser/godownloader => github.com/kamilsk/godownloader v0.1.22
+	golang.org/x/tools => github.com/kamilsk/go-tools v0.16.1
 )
 
 require (
