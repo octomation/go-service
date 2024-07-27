@@ -1,8 +1,7 @@
 module tools
 
 go 1.21
-
-toolchain go1.21.0
+toolchain go1.22.5
 
 require (
 	github.com/bufbuild/buf v1.28.1
@@ -12,7 +11,7 @@ require (
 	github.com/goreleaser/godownloader v0.1.0
 	github.com/goreleaser/goreleaser v1.23.0
 	github.com/mikefarah/yq/v4 v4.40.5
-	github.com/solo-io/protoc-gen-openapi v0.1.1
+	github.com/solo-io/protoc-gen-openapi v0.2.4
 	github.com/twitchtv/twirp v8.1.3+incompatible
 	golang.org/x/tools v0.16.1
 	golang.org/x/vuln v1.0.1
@@ -467,10 +466,12 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.4.6 // indirect
+	k8s.io/apimachinery v0.29.0 // indirect
 	mvdan.cc/gofumpt v0.5.0 // indirect
 	mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed // indirect
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
 	mvdan.cc/unparam v0.0.0-20230312165513-e84e2d14e3b8 // indirect
+	sigs.k8s.io/controller-tools v0.14.0 // indirect
 	sigs.k8s.io/kind v0.20.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
