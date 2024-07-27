@@ -3,7 +3,7 @@ module go.octolab.org/template/service
 go 1.20
 
 require (
-	connectrpc.com/connect v1.14.0
+	connectrpc.com/connect v1.16.2
 	github.com/fatih/color v1.16.0
 	github.com/golang/mock v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.0
@@ -14,10 +14,10 @@ require (
 	go.octolab.org v0.12.2
 	go.octolab.org/toolkit/cli v0.6.3
 	go.octolab.org/toolkit/config v0.0.4
-	golang.org/x/net v0.19.0
+	golang.org/x/net v0.23.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240102182953-50ed04b92917
 	google.golang.org/grpc v1.60.1
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 )
 
 require (
@@ -43,7 +43,7 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/genproto v0.0.0-20231212172506-995d672761c0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240102182953-50ed04b92917 // indirect
