@@ -1,6 +1,6 @@
 [![Go Service][social.preview]][preview.config]
 
-# 🧩 Service
+# 📐 Service
 
 GitHub Actions workflows.
 

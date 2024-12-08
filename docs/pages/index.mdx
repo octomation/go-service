@@ -8,7 +8,7 @@
 [![Mirror][mirror.icon]][mirror.page]
 [![Template][template.icon]][template.page]
 
-# 🧩 Service
+# 📐 Service
 
 Template for a typical service written on Go.
 
