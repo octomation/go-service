@@ -3,7 +3,9 @@ name: Release delivery
 on:
   workflow_call:
     secrets:
-      GORELEASER_TOKEN:
+      OCTOLAB_RELEASER_CLIENT_ID:
+        required: true
+      OCTOLAB_RELEASER_KEY:
         required: true
 
   workflow_dispatch:
@@ -22,6 +24,9 @@ jobs:
   release:
     name: Releasing
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
 
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -45,16 +50,30 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GORELEASER_TOKEN }}
+          password: ${{ github.token }}
 
+      # the release uses github.token; the Formula goes to octolab/homebrew-tap
+      # with a token of the OctoLab Releaser App scoped to the tap (as indexit);
+      # minted whenever the release step runs, so a real release always has it
+      - name: Mint the tap token
+        id: tap
+        uses: actions/create-github-app-token@v3.3.0
+        with:
+          client-id: ${{ secrets.OCTOLAB_RELEASER_CLIENT_ID }}
+          private-key: ${{ secrets.OCTOLAB_RELEASER_KEY }}
+          owner: octolab
+          repositories: homebrew-tap
+          permission-contents: write
       - name: Publish the release
-        uses: goreleaser/goreleaser-action@v5.0.0
+        uses: goreleaser/goreleaser-action@v7.3.0
         with:
           distribution: goreleaser
-          version: latest
-          args: release --clean --fail-fast
+          version: v2.18.2
+          # a tag releases; a dispatch builds a snapshot and publishes nothing
+          args: ${{ startsWith(github.ref, 'refs/tags/v') && 'release --clean --fail-fast' || 'release --snapshot --clean --skip=publish' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          HOMEBREW_TAP_TOKEN: ${{ steps.tap.outputs.token }}
 
   notify:
     name: Notifying

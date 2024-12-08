@@ -1,64 +1,44 @@
+version: 2
+
+# a template: the generated project replaces the names below
 project_name: service
 
 archives:
   - id: service
-    builds:
-      - client
+    ids:
       - server
+      - client
     files:
       - LICENSE
-    format: tar.gz
+    formats: [tar.gz]
     name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
 
+# brews is deprecated upstream, but it is the only GoReleaser generator of a
+# Formula (as octopot/indexit and octomation/maintainer). Keep GoReleaser
+# pinned in CI.
 brews:
   - name: service
-    caveats: An example of the goreleaser usage.
+    ids: [service]
+    # a prerelease tag (vX.Y.Z-rcN) leaves the tap as it is
+    skip_upload: auto
     commit_author:
-      name: Kamil Samigullin
-      email: kamil@samigullin.info
-    description: Template for a typical service written on Go.
-    folder: Formula
+      use_github_app_token: true
+    description: "Template for a typical service written on Go."
+    directory: Formula
     homepage: https://go-service.octolab.org/
     repository:
       owner: octolab
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
     install: |
-      bin.install "service"
-      output = Utils.popen_read("#{bin}/server completion bash")
-      (bash_completion/"server").write output
-      output = Utils.popen_read("#{bin}/server completion fish")
-      (fish_completion/"server.fish").write output
-      output = Utils.popen_read("#{bin}/server completion zsh")
-      (zsh_completion/"_server").write output
-
+      bin.install "server"
       bin.install "client"
-      output = Utils.popen_read("#{bin}/client completion bash")
-      (bash_completion/"client").write output
-      output = Utils.popen_read("#{bin}/client completion fish")
-      (fish_completion/"client.fish").write output
-      output = Utils.popen_read("#{bin}/client completion zsh")
-      (zsh_completion/"_client").write output
       prefix.install_metafiles
     test: |
-      system "#{bin}/server version"
-      system "#{bin}/client version"
+      system "#{bin}/server", "--help"
+      system "#{bin}/client", "--help"
 
 builds:
-  - id: client
-    binary: client
-    env:
-      - CGO_ENABLED=0
-    flags:
-      - -trimpath
-    goarch:
-      - amd64
-      - arm64
-    goos:
-      - darwin
-      - linux
-    ldflags:
-      - -s -w -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.version={{.Version}}
-    main: ./cmd/client
   - id: server
     binary: server
     env:
@@ -74,68 +54,41 @@ builds:
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
     main: ./cmd/server
+  - id: client
+    binary: client
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/client
 
 checksum: { name_template: checksums.txt }
 
-dockers:
-  - id: server-linux-amd64
-    goos: linux
-    goarch: amd64
-    ids:
-      - server
-    image_templates:
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-amd64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}-amd64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}.{{.Minor}}-amd64'
-    use: buildx
-    build_flag_templates:
-      - '--pull'
-      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
-      - '--label=org.opencontainers.image.created={{.Date}}'
-      - '--label=org.opencontainers.image.version={{.Version}}'
-      - '--platform=linux/amd64'
-    extra_files:
-      - deploy/config.toml
-      - LICENSE
-  - id: server-linux-arm64
-    goos: linux
-    goarch: arm64
-    ids:
-      - server
-    image_templates:
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-arm64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}-arm64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}.{{.Minor}}-arm64'
-    use: buildx
-    build_flag_templates:
-      - '--pull'
-      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
-      - '--label=org.opencontainers.image.created={{.Date}}'
-      - '--label=org.opencontainers.image.version={{.Version}}'
-      - '--platform=linux/arm64'
-    extra_files:
-      - deploy/config.toml
-      - LICENSE
-
-docker_manifests:
-  - name_template: 'ghcr.io/octomation/go-service:latest'
-    image_templates:
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-amd64'
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-arm64'
-  - name_template: 'ghcr.io/octomation/go-service:{{.Tag}}'
-    image_templates:
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-amd64'
-      - 'ghcr.io/octomation/go-service:{{.Tag}}-arm64'
-  - name_template: 'ghcr.io/octomation/go-service:v{{.Major}}'
-    image_templates:
-      - 'ghcr.io/octomation/go-service:v{{.Major}}-amd64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}-arm64'
-  - name_template: 'ghcr.io/octomation/go-service:v{{.Major}}.{{.Minor}}'
-    image_templates:
-      - 'ghcr.io/octomation/go-service:v{{.Major}}.{{.Minor}}-amd64'
-      - 'ghcr.io/octomation/go-service:v{{.Major}}.{{.Minor}}-arm64'
+dockers_v2:
+  - id: server
+    ids: [server]
+    images: ['ghcr.io/octomation/go-service']
+    tags:
+      - '{{.Tag}}'
+      - 'v{{.Major}}'
+      - 'v{{.Major}}.{{.Minor}}'
+      - '{{ if not .Prerelease }}latest{{ end }}'
+    extra_files: [deploy/config.toml, LICENSE]
+    labels:
+      org.opencontainers.image.revision: '{{.FullCommit}}'
+      org.opencontainers.image.created: '{{.Date}}'
+      org.opencontainers.image.version: '{{.Version}}'
+    platforms: [linux/amd64, linux/arm64]
 
 release:
-  github:
-    owner: octomation
-    name: go-service
+  # the repository comes from the git remote; a prerelease tag (vX.Y.Z-rcN)
+  # is published as a prerelease, never as Latest
+  prerelease: auto

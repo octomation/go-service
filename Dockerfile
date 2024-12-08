@@ -6,7 +6,9 @@ LABEL org.opencontainers.image.description="Template for a typical service writt
 LABEL org.opencontainers.image.source="https://github.com/octomation/go-service"
 LABEL org.opencontainers.image.licenses="MIT"
 
-COPY server deploy/config.toml /
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/server /
+COPY deploy/config.toml /
 EXPOSE 3360 8080 8081 8890 8891
 
 ENTRYPOINT ["/server"]
