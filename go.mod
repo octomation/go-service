@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.23.3
 
 require (
-	connectrpc.com/connect v1.14.0
+	connectrpc.com/connect v1.17.0
 	github.com/fatih/color v1.16.0
 	github.com/golang/mock v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.0
