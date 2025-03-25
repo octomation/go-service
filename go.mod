@@ -1,8 +1,7 @@
 module go.octolab.org/template/service
 
 go 1.21
-
-toolchain go1.23.3
+toolchain go1.24.1
 
 require (
 	connectrpc.com/connect v1.14.0
@@ -19,7 +18,7 @@ require (
 	golang.org/x/net v0.28.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576
 	google.golang.org/grpc v1.67.1
-	google.golang.org/protobuf v1.35.2
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
