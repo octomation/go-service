@@ -56,7 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Upload the documentation
-        uses: actions/upload-pages-artifact@v3.0.0
+        uses: actions/upload-pages-artifact@v4.0.0
         with: { path: docs/dist }
 
   deploy:
