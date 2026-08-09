@@ -14,8 +14,8 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/twitchtv/twirp v8.1.3+incompatible
 	go.octolab.org v0.12.2
-	go.octolab.org/toolkit/cli v0.6.3
-	go.octolab.org/toolkit/config v0.0.4
+	go.octolab.org/toolkit/cli v0.6.4
+	go.octolab.org/toolkit/config v0.0.5
 	golang.org/x/net v0.28.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576
 	google.golang.org/grpc v1.67.1
