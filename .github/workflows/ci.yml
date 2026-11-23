@@ -150,7 +150,7 @@ jobs:
       - name: Mint the catalog token
         if: steps.preflight.outputs.ready == 'true'
         id: catalog
-        uses: actions/create-github-app-token@v3.3.0
+        uses: actions/create-github-app-token@v3.4.0
         with:
           client-id: ${{ secrets.OCTOLAB_RELEASER_CLIENT_ID }}
           private-key: ${{ secrets.OCTOLAB_RELEASER_KEY }}
