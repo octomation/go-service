@@ -57,7 +57,7 @@ jobs:
       # minted whenever the release step runs, so a real release always has it
       - name: Mint the tap token
         id: tap
-        uses: actions/create-github-app-token@v3.3.0
+        uses: actions/create-github-app-token@v3.4.0
         with:
           client-id: ${{ secrets.OCTOLAB_RELEASER_CLIENT_ID }}
           private-key: ${{ secrets.OCTOLAB_RELEASER_KEY }}
